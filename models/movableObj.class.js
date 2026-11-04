@@ -1,12 +1,13 @@
-class MovableObj extends world {
-  x;
-  y;
+class MovableObj {
+  x = 120;
+  y = 250;
   img;
-  constructor(x, y, img) {
-    super();
-    this.x = x;
-    this.y = y;
-    this.img = img;
+  height = 100;
+  width = 150;
+
+  loadImage(path) {
+    this.img = new Image();
+    this.img.src = path;
   }
 
   moveRight() {

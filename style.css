@@ -3,7 +3,6 @@ body {
 }
 canvas {
   margin: auto;
-  height: 480px;
-  width: 720px;
+
   background: rgb(93, 79, 79);
 }
