@@ -1,8 +1,10 @@
 class Character extends MovableObj {
-  width = 150;
+  width = 100;
   height = 100;
-  constructor() {
-    super().loadImage('./assets/img/charaktere/skater-hocken.png');
+  constructor(path) {
+    super();
+    super.loadImage(path);
+    super.breiteAnpassen();
   }
 
   jump() {}
