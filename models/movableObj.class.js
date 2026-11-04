@@ -4,6 +4,7 @@ class MovableObj {
   img;
   width = 100;
   height = 100;
+  speed = 0.15;
   imageCache = {};
   constructor() {}
 
@@ -17,20 +18,25 @@ class MovableObj {
     arr.forEach((path) => {
       const img = new Image();
       img.src = path;
-      this.imageCache.push[path] = path;
+      this.imageCache[path] = img;
     });
   }
 
   breiteAnpassen() {
-    this.img.onload = () => {
-      this.width = (this.height * this.img.naturalWidth) / this.img.naturalHeight;
-    };
+    this.width = (this.height * this.img.naturalWidth) / this.img.naturalHeight;
   }
 
   moveRight() {
-    console.log('move right');
+    setInterval(() => {
+      this.x += this.speed;
+    }, 1000 / 60);
   }
-  moveleft() {}
+
+  moveLeft() {
+    setInterval(() => {
+      this.x -= this.speed;
+    }, 1000 / 60);
+  }
 
   animate(leftOrRight) {
     setInterval(() => {
