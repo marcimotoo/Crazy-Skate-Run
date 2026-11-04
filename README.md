@@ -1,6 +1,6 @@
 ﻿# Polo Loco oder so
 
-Ein Browser-Spiel in Entwicklung mit HTML, CSS und JavaScript. Aktuell werden eine Spielfigur, Hindernisse und Wolken auf einem Canvas dargestellt.
+Ein Browser-Spiel in Entwicklung mit HTML, CSS und JavaScript. Aktuell werden eine Spielfigur, Hindernisse, Wolken und urbane Hintergrundebenen auf einem Canvas dargestellt.
 
 ## Starten
 
@@ -11,4 +11,5 @@ Ein Browser-Spiel in Entwicklung mit HTML, CSS und JavaScript. Aktuell werden ei
 - `game.js`: Initialisierung des Spiels
 - `models/`: Spielwelt und Spielobjekte
 - `assets/`: Spielgrafiken und alternative Grafikvorlagen
+- `assets/img/`: Grafiken, sortiert nach Hintergründen, Charakteren und Objekten
 - `style.css` und `reset.css`: Darstellung

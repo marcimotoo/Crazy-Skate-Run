@@ -2,6 +2,12 @@ class World {
   charackter = new Character();
   enemies = [new Chicken(), new Chicken(), new Chicken()];
   clouds = [new Cloud(), new Cloud(), new Cloud()];
+  backgroundObjects = [
+    new BackgroundObject('./assets/img/hintergruende/himmel.png', 0, 1440, 480),
+    new BackgroundObject('./assets/img/hintergruende/skyline-transparent.png', 0, 1440, 480),
+    new BackgroundObject('./assets/img/hintergruende/haeuser-vorne.png', 0, 1440, 480),
+    new BackgroundObject('./assets/img/hintergruende/strasse-breit.png', 0, 1440, 120),
+  ];
   canvas;
   ctx;
 
@@ -13,14 +19,11 @@ class World {
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.clouds.forEach((cloud) => {
-      this.ctx.drawImage(cloud.img, cloud.x, cloud.y, cloud.width, cloud.height);
-    });
 
-    this.ctx.drawImage(this.charackter.img, this.charackter.x, this.charackter.y, this.charackter.width, this.charackter.height);
-    this.enemies.forEach((enemy) => {
-      this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.width, enemy.height);
-    });
+    this.addObjectsToMap(this.backgroundObjects);
+    this.addToMap(this.charackter);
+    this.addObjectsToMap(this.enemies);
+    this.addObjectsToMap(this.clouds);
 
     const self = this;
     requestAnimationFrame(function () {
@@ -28,7 +31,18 @@ class World {
     });
   }
 
+  addObjectsToMap(parameter) {
+    parameter.forEach((object) => {
+      this.addToMap(object);
+    });
+  }
+
+  addToMap(mo) {
+    this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+  }
+
   moveRight() {}
+  moveLeft() {}
 
   jump() {}
 }
