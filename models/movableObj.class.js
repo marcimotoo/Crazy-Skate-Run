@@ -8,7 +8,14 @@ class MovableObj {
   currentImage = 0;
   speed = 0.15;
   otherDirection = false;
+  speedY;
+  accleration;
   constructor() {}
+
+  schwerkraft() {
+    this.x -= this.speedY;
+    this.speedY += this.accleration;
+  }
 
   loadImage(path) {
     this.img = new Image();
