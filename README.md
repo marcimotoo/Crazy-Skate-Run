@@ -10,6 +10,7 @@ Ein Browser-Spiel in Entwicklung mit HTML, CSS und JavaScript. Aktuell werden ei
 
 - `game.js`: Initialisierung des Spiels
 - `models/`: Spielwelt und Spielobjekte
+- `levels/`: Leveldefinitionen mit Gegnern, Wolken und Hintergrundobjekten
 - `assets/`: Spielgrafiken und alternative Grafikvorlagen
 - `assets/img/`: Grafiken, sortiert nach Hintergründen, Charakteren und Objekten
 - `style.css` und `reset.css`: Darstellung

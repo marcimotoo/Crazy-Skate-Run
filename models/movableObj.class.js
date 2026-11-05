@@ -4,8 +4,10 @@ class MovableObj {
   img;
   width = 100;
   height = 100;
-  speed = 0.15;
   imageCache = {};
+  currentImage = 0;
+  speed = 0.15;
+  otherDirection = false;
   constructor() {}
 
   loadImage(path) {
