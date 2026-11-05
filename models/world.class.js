@@ -1,6 +1,6 @@
 class World {
   charackter = new Character('./assets/img/charaktere/skater-hocken.png');
-  enemies = [new Pylon(), new Pylon(), new Pylon()];
+  enemies = [new Secruity(), new Secruity(), new Secruity()];
   clouds = [new Cloud(), new Cloud(), new Cloud()];
   backgroundObjects = [
     new BackgroundObject('./assets/img/hintergruende/himmel.png', 0, 1440, 480),

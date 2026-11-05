@@ -1,4 +1,4 @@
-class Pylon extends MovableObj {
+class Secruity extends MovableObj {
   charArray = [
     { path: 'assets/img/charaktere/security-laufen-export/security-laufen-01.png', height: 100, x: 120, y: 310 },
     { path: 'assets/img/charaktere/security-laufen-export/security-laufen-02.png', height: 100, x: 120, y: 310 },
