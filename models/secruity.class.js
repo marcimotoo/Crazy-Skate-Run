@@ -16,7 +16,7 @@ class Secruity extends MovableObj {
     this.loadImages(this.charArray.map((pose) => pose.path));
     this.img.onload = () => this.breiteAnpassen();
     this.x = 200 + Math.random() * 500;
-    this.speed = 0.1 + Math.random();
+    this.speed = 0.15 + Math.random() * 0.25;
     this.animate();
   }
 
