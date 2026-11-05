@@ -6,6 +6,7 @@ class Character extends MovableObj {
     { path: 'assets/img/charaktere/skater-springen.png', height: 115, x: 125, y: 280 },
     { path: 'assets/img/charaktere/skater-stehen.png', height: 140, x: 145, y: 282 },
   ];
+  world;
   currentImage = 0;
   constructor(path) {
     super();
@@ -15,18 +16,18 @@ class Character extends MovableObj {
     this.animate();
   }
 
-  jump() {}
   animate() {
-    this.moveRight();
     setInterval(() => {
-      const i = this.currentImage % this.charArray.length;
-      const pose = this.charArray[i];
-      this.img = this.imageCache[pose.path];
-      this.height = pose.height;
-      this.x = pose.x;
-      this.y = pose.y;
-      this.breiteAnpassen();
-      this.currentImage++;
-    }, 600);
+      if (this.world.keyboard.RIGHT) {
+        const i = this.currentImage % this.charArray.length;
+        const pose = this.charArray[i];
+        this.img = this.imageCache[pose.path];
+        this.height = pose.height;
+        this.x = pose.x;
+        this.y = pose.y;
+        this.breiteAnpassen();
+        this.currentImage++;
+      }
+    }, 100);
   }
 }

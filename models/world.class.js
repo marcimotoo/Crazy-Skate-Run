@@ -1,5 +1,5 @@
 class World {
-  charackter = new Character('./assets/img/charaktere/skater-hocken.png');
+  character = new Character('./assets/img/charaktere/skater-hocken.png');
   enemies = [new Secruity(), new Secruity(), new Secruity()];
   clouds = [new Cloud(), new Cloud(), new Cloud()];
   backgroundObjects = [
@@ -11,12 +11,16 @@ class World {
   canvas;
   ctx;
   keyboard;
-
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
     this.keyboard = keyboard;
+    this.setWorld();
     this.draw();
+  }
+
+  setWorld() {
+    this.character.world = this;
   }
 
   draw() {
@@ -24,7 +28,7 @@ class World {
 
     this.addObjectsToMap(this.backgroundObjects);
     this.addObjectsToMap(this.clouds);
-    this.addToMap(this.charackter);
+    this.addToMap(this.character);
     this.addObjectsToMap(this.enemies);
 
     const self = this;
@@ -42,9 +46,4 @@ class World {
   addToMap(mo) {
     this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
   }
-
-  moveRight() {}
-  moveLeft() {}
-
-  jump() {}
 }
