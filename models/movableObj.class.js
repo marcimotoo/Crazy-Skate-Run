@@ -1,20 +1,28 @@
 class MovableObj {
   x = 120;
-  y = 310;
+  y = 350;
   img;
-  width = 100;
+  width = 150;
   height = 100;
   imageCache = {};
   currentImage = 0;
   speed = 0.15;
   otherDirection = false;
-  speedY;
-  accleration;
+  speedY = 0;
+  accleration = 1;
   constructor() {}
 
-  schwerkraft() {
-    this.x -= this.speedY;
-    this.speedY += this.accleration;
+  fall() {
+    setInterval(() => {
+      if (this.isAbouveGround() || this.speedY > 0) {
+        this.y -= this.speedY;
+        this.speedY -= this.accleration;
+      }
+    }, 1000 / 25);
+  }
+
+  isAbouveGround() {
+    return this.y < 350;
   }
 
   loadImage(path) {
@@ -31,10 +39,6 @@ class MovableObj {
     });
   }
 
-  breiteAnpassen() {
-    this.width = (this.height * this.img.naturalWidth) / this.img.naturalHeight;
-  }
-
   moveRight() {
     setInterval(() => {
       this.x += this.speed;
@@ -44,16 +48,6 @@ class MovableObj {
   moveLeft() {
     setInterval(() => {
       this.x -= this.speed;
-    }, 1000 / 60);
-  }
-
-  animate(leftOrRight) {
-    setInterval(() => {
-      if (leftOrRight === 'left') {
-        this.x -= 0.2;
-      } else if (leftOrRight === 'right') {
-        this.x += 0.2;
-      }
     }, 1000 / 60);
   }
 }

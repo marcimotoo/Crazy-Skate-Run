@@ -1,32 +1,35 @@
 class Character extends MovableObj {
-  width = 100;
+  y = 350;
+  width = 63;
   height = 100;
   speed = 5;
-  charArray = [
-    { path: 'assets/img/charaktere/skater-hocken.png', height: 100, x: 120, y: 310 },
-    { path: 'assets/img/charaktere/skater-springen.png', height: 115, x: 125, y: 280 },
-    { path: 'assets/img/charaktere/skater-stehen.png', height: 140, x: 145, y: 282 },
-  ];
+  rideImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-animation/skater-${number}.png`);
+  jumpImages = [5, 6, 7, 8].map((number) => `assets/img/charaktere/skater-animation/skater-${number}.png`);
   world;
   currentImage = 0;
   constructor(path) {
     super();
-    this.loadImage(path);
-    this.loadImages(this.charArray.map((pose) => pose.path));
-    this.img.onload = () => this.breiteAnpassen();
+    this.loadImage(this.rideImages[0]);
+    this.loadImages([...this.rideImages, ...this.jumpImages]);
+
     this.animate();
+    this.fall();
   }
 
   animate() {
     setInterval(() => {
-      if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-        const i = this.currentImage % this.charArray.length;
-        const pose = this.charArray[i];
-        this.img = this.imageCache[pose.path];
-        this.height = pose.height;
-        this.y = pose.y;
-        this.breiteAnpassen();
+      if (this.isAbouveGround() || this.speedY > 0) {
+        let frame = 3;
+        if (this.speedY > 10) frame = 0;
+        else if (this.speedY > 4) frame = 1;
+        else if (this.speedY > -6) frame = 2;
+        this.img = this.imageCache[this.jumpImages[frame]];
+      } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+        const i = this.currentImage % this.rideImages.length;
+        this.img = this.imageCache[this.rideImages[i]];
         this.currentImage++;
+      } else {
+        this.img = this.imageCache[this.rideImages[0]];
       }
     }, 100);
 
@@ -41,17 +44,10 @@ class Character extends MovableObj {
         this.otherDirection = true;
       }
 
-      if (this.world.keyboard.UP) {
-        this.y += this.speed;
+      if (this.world.keyboard.SPACE && !this.isAbouveGround()) {
+        this.speedY = 15;
       }
 
-      if (this.world.keyboard.DOWN) {
-        this.y -= this.speed;
-      }
-
-      if (this.world.keyboard.SPACE) {
-        this.y += this.speed;
-      }
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
   }

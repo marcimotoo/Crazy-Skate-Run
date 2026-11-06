@@ -17,10 +17,10 @@ window.addEventListener('keydown', (event) => {
   if (event.code == 'KeyW') {
     keyboard.UP = true;
   }
-  if ((event.code = 'KeyS')) {
+  if (event.code == 'KeyS') {
     keyboard.DOWN = true;
   }
-  if (event.code == 'SPACE') {
+  if (event.code == 'Space') {
     keyboard.SPACE = true;
   }
 
@@ -37,10 +37,10 @@ window.addEventListener('keyup', (event) => {
   if (event.code == 'KeyW') {
     keyboard.UP = false;
   }
-  if ((event.code = 'KeyS')) {
+  if (event.code == 'KeyS') {
     keyboard.DOWN = false;
   }
-  if (event.code == 'SPACE') {
+  if (event.code == 'Space') {
     keyboard.SPACE = false;
   }
 });
