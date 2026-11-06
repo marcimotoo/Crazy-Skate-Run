@@ -9,8 +9,9 @@ class World {
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
     this.keyboard = keyboard;
-    this.setWorld();
     this.draw();
+    this.setWorld();
+    this.checkCollision();
   }
 
   setWorld() {
@@ -45,7 +46,8 @@ class World {
   addToMap(mo) {
     this.flipImage(mo);
 
-    this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+    mo.draw(this.ctx);
+    mo.drawFrame(this.ctx);
 
     this.flipImageBack(mo);
   }
@@ -64,4 +66,21 @@ class World {
       this.ctx.restore();
     }
   }
+
+  checkCollision() {
+    setInterval(() => {
+      this.level.enemies.forEach((enemy) => {
+        if (this.character.isColliding(enemy)) {
+          console.log('collision with character', enemy);
+        }
+      });
+    }, 1000);
+  }
+
+  //   if (character.x + character.width > chicken.x &&
+  // character.y + character.height > chicken.y &&
+  // character.x < chicken.x &&
+  // character.y < chicken.y + chicken.height
+
+  // )
 }

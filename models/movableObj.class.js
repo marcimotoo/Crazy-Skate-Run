@@ -50,4 +50,28 @@ class MovableObj {
       this.x -= this.speed;
     }, 1000 / 60);
   }
+
+  draw(ctx) {
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+  }
+
+  drawFrame(ctx) {
+    if (this instanceof Character || this instanceof Secruity) {
+      ctx.beginPath();
+      ctx.lineWidth = '2';
+      ctx.strokeStyle = 'red';
+      ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
+    }
+  }
+
+  isColliding(mo) {
+    return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
+  }
+
+  //   if (character.x + character.width > chicken.x &&
+  // character.y + character.height > chicken.y &&
+  // character.x < chicken.x &&
+  // character.y < chicken.y + chicken.height
+  // )
 }
