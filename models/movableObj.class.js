@@ -10,6 +10,7 @@ class MovableObj {
   otherDirection = false;
   speedY = 0;
   accleration = 1;
+  energy = 100;
   constructor() {}
 
   fall() {
