@@ -9,21 +9,26 @@ class MovableObj {
   speed = 0.15;
   otherDirection = false;
   speedY = 0;
-  accleration = 1;
+  acceleration = 1;
   energy = 100;
+
   constructor() {}
+
+  isAbouveGround() {
+    return this.y < 350;
+  }
 
   fall() {
     setInterval(() => {
       if (this.isAbouveGround() || this.speedY > 0) {
-        this.y -= this.speedY;
-        this.speedY -= this.accleration;
+        this.fallPhysic();
       }
     }, 1000 / 25);
   }
 
-  isAbouveGround() {
-    return this.y < 350;
+  fallPhysic() {
+    this.y -= this.speedY;
+    this.speedY -= this.acceleration;
   }
 
   loadImage(path) {
@@ -41,15 +46,15 @@ class MovableObj {
   }
 
   moveRight() {
-    setInterval(() => {
-      this.x += this.speed;
-    }, 1000 / 60);
+    this.x += this.speed;
   }
 
   moveLeft() {
-    setInterval(() => {
-      this.x -= this.speed;
-    }, 1000 / 60);
+    this.x -= this.speed;
+  }
+
+  jump() {
+    this.speedY = 15;
   }
 
   draw(ctx) {
@@ -75,4 +80,15 @@ class MovableObj {
   // character.x < chicken.x &&
   // character.y < chicken.y + chicken.height
   // )
+
+  hit() {
+    this.energy -= 10;
+    if (this.energy < 0) {
+      this.energy = 0;
+    }
+  }
+
+  isDead() {
+    return this.energy == 0;
+  }
 }

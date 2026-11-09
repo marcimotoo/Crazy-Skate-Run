@@ -1,4 +1,7 @@
 class Secruity extends MovableObj {
+  width = 100;
+  height = 100;
+  speed = 1 + Math.random() * 3;
   charArray = [
     { path: 'assets/img/charaktere/security-laufen-export/security-laufen-01.png', height: 100, x: 120, y: 310 },
     { path: 'assets/img/charaktere/security-laufen-export/security-laufen-02.png', height: 100, x: 120, y: 310 },
@@ -14,24 +17,18 @@ class Secruity extends MovableObj {
     super();
     this.loadImage('assets/img/charaktere/security-laufen-export/security-laufen-01.png');
     this.loadImages(this.charArray.map((pose) => pose.path));
-    this.img.onload = () => this.breiteAnpassen();
     this.x = 200 + Math.random() * 500;
-    this.speed = 0.15 + Math.random() * 0.25;
+
     this.animate();
   }
 
-  breiteAnpassen() {
-    this.width = (this.height * this.img.naturalWidth) / this.img.naturalHeight;
-  }
-
   animate() {
-    this.moveLeft();
     setInterval(() => {
+      this.moveLeft();
       const i = this.currentImage % this.charArray.length;
       const pose = this.charArray[i];
       this.img = this.imageCache[pose.path];
-      this.breiteAnpassen();
       this.currentImage++;
-    }, 200);
+    }, 100);
   }
 }

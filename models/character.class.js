@@ -13,42 +13,58 @@ class Character extends MovableObj {
     this.loadImages([...this.rideImages, ...this.jumpImages]);
 
     this.animate();
+    this.controlCharacter();
     this.fall();
   }
 
   animate() {
     setInterval(() => {
+      if (this.isDead()) {
+      }
       if (this.isAbouveGround() || this.speedY > 0) {
-        let frame = 3;
-        if (this.speedY > 10) frame = 0;
-        else if (this.speedY > 4) frame = 1;
-        else if (this.speedY > -6) frame = 2;
-        this.img = this.imageCache[this.jumpImages[frame]];
+        this.fallAnimation();
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-        const i = this.currentImage % this.rideImages.length;
-        this.img = this.imageCache[this.rideImages[i]];
-        this.currentImage++;
+        this.leftRightAnimation();
       } else {
-        this.img = this.imageCache[this.rideImages[0]];
+        this.standAnimation();
       }
     }, 100);
+  }
 
+  controlCharacter() {
     setInterval(() => {
       if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x) {
-        this.x += this.speed;
+        this.moveRight();
         this.otherDirection = false;
       }
 
       if (this.world.keyboard.LEFT && this.x >= 110) {
-        this.x -= this.speed;
+        this.moveLeft();
         this.otherDirection = true;
       }
 
       if (this.world.keyboard.SPACE && !this.isAbouveGround()) {
-        this.speedY = 15;
+        this.jump();
       }
 
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
+  }
+
+  standAnimation() {
+    this.img = this.imageCache[this.rideImages[0]];
+  }
+
+  leftRightAnimation() {
+    const i = this.currentImage % this.rideImages.length;
+    this.img = this.imageCache[this.rideImages[i]];
+    this.currentImage++;
+  }
+  fallAnimation() {
+    let frame = 3;
+    if (this.speedY > 10) frame = 0;
+    else if (this.speedY > 4) frame = 1;
+    else if (this.speedY > -6) frame = 2;
+    this.img = this.imageCache[this.jumpImages[frame]];
   }
 }
