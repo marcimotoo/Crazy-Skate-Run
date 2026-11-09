@@ -5,12 +5,15 @@ class Character extends MovableObj {
   speed = 5;
   rideImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-animation/skater-${number}.png`);
   jumpImages = [5, 6, 7, 8].map((number) => `assets/img/charaktere/skater-animation/skater-${number}.png`);
+  standImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-idle/skater-idle-${number}.png`);
+  stopImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-bremsen/skater-bremsen-${number}.png`);
+  preJumpImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sprungvorbereitung/skater-sprungvorbereitung-${number}.png`);
   world;
   currentImage = 0;
   constructor(path) {
     super();
     this.loadImage(this.rideImages[0]);
-    this.loadImages([...this.rideImages, ...this.jumpImages]);
+    this.loadImages([...this.rideImages, ...this.standImages, ...this.jumpImages, ...this.stopImages, ...this.preJumpImages]);
 
     this.animate();
     this.controlCharacter();
@@ -25,6 +28,7 @@ class Character extends MovableObj {
         this.fallAnimation();
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.leftRightAnimation();
+      } else if (!this.world.keyboard.RIGHT || !this.world.keyboard.LEFT) {
       } else {
         this.standAnimation();
       }
@@ -37,7 +41,6 @@ class Character extends MovableObj {
         this.moveRight();
         this.otherDirection = false;
       }
-
       if (this.world.keyboard.LEFT && this.x >= 110) {
         this.moveLeft();
         this.otherDirection = true;
@@ -51,8 +54,22 @@ class Character extends MovableObj {
     }, 1000 / 60);
   }
 
+  preJumpAnimation() {
+    const i = this.currentImage % this.preJumpImages.length;
+    this.img = this.imageCache[this.preJumpImages[i]];
+    this.currentImage++;
+  }
+
+  stopAnimation() {
+    const i = this.currentImage % this.stopImages.length;
+    this.img = this.imageCache[this.stopImages[i]];
+    this.currentImage++;
+  }
+
   standAnimation() {
-    this.img = this.imageCache[this.rideImages[0]];
+    const i = this.currentImage % this.standImages.length;
+    this.img = this.imageCache[this.standdImages[i]];
+    this.currentImage++;
   }
 
   leftRightAnimation() {
