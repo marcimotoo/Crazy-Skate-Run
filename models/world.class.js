@@ -1,4 +1,5 @@
 class World {
+  status = new StatusBar('assets/img/statusleisten/gleichgewicht/gleichgewicht-0.png');
   character = new Character('./assets/img/charaktere/skater-hocken.png');
   level = level1;
   canvas;

@@ -12,7 +12,7 @@ class Character extends MovableObj {
   world;
   currentImage = 0;
   altePosition = this.x;
-  constructor(path) {
+  constructor() {
     super();
     this.loadImage(this.rideImages[0]);
     this.loadImages([...this.rideImages, ...this.standImages, ...this.jumpImages, ...this.stopImages, ...this.preJumpImages]);
@@ -33,10 +33,8 @@ class Character extends MovableObj {
         this.animation(this.rideImages);
       } else if (this.world.keyboard.SPACE) {
         this.animation(this.preJumpImages);
-        console.log('Der Charakter fährt');
       } else {
         this.animation(this.standImages);
-        console.log('Der Charakter steht');
       }
     }, 100);
   }
