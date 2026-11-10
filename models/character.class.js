@@ -10,6 +10,7 @@ class Character extends MovableObj {
   preJumpImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sprungvorbereitung/skater-sprungvorbereitung-${number}.png`);
   world;
   currentImage = 0;
+  altePosition = this.x;
   constructor(path) {
     super();
     this.loadImage(this.rideImages[0]);
@@ -28,9 +29,12 @@ class Character extends MovableObj {
         this.fallAnimation();
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.leftRightAnimation();
-      } else if (!this.world.keyboard.RIGHT || !this.world.keyboard.LEFT) {
+      } else if (this.x !== this.altePosition) {
+        this.stopAnimation();
+        console.log('Der Charakter fährt');
       } else {
         this.standAnimation();
+        console.log('Der Charakter steht');
       }
     }, 100);
   }
@@ -68,7 +72,7 @@ class Character extends MovableObj {
 
   standAnimation() {
     const i = this.currentImage % this.standImages.length;
-    this.img = this.imageCache[this.standdImages[i]];
+    this.img = this.imageCache[this.standImages[i]];
     this.currentImage++;
   }
 
