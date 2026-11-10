@@ -1,18 +1,14 @@
-class MovableObj {
-  x = 120;
-  y = 350;
-  img;
-  width = 150;
-  height = 100;
-  imageCache = {};
-  currentImage = 0;
+class MovableObj extends DrawableObject {
   speed = 0.15;
   otherDirection = false;
   speedY = 0;
   acceleration = 1;
   energy = 100;
+  lastHit = 0;
 
-  constructor() {}
+  constructor() {
+    super();
+  }
 
   isAbouveGround() {
     return this.y < 350;
@@ -31,20 +27,6 @@ class MovableObj {
     this.speedY -= this.acceleration;
   }
 
-  loadImage(path) {
-    this.img = new Image();
-    this.img.src = path;
-    this.animate;
-  }
-
-  loadImages(arr) {
-    arr.forEach((path) => {
-      const img = new Image();
-      img.src = path;
-      this.imageCache[path] = img;
-    });
-  }
-
   moveRight() {
     this.x += this.speed;
   }
@@ -55,10 +37,6 @@ class MovableObj {
 
   jump() {
     this.speedY = 15;
-  }
-
-  draw(ctx) {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
 
   drawFrame(ctx) {
@@ -82,10 +60,18 @@ class MovableObj {
   // )
 
   hit() {
-    this.energy -= 10;
+    this.energy -= 50;
     if (this.energy < 0) {
       this.energy = 0;
+    } else {
+      this.lastHit = new Date().getTime();
     }
+  }
+
+  isHurt() {
+    const timePassed = new Date().getTime() - this.lastHit; // difference in ms
+    timePassed = timePassed / 1000;
+    return timePassed < 1;
   }
 
   isDead() {

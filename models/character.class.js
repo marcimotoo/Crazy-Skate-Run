@@ -8,6 +8,7 @@ class Character extends MovableObj {
   standImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-idle/skater-idle-${number}.png`);
   stopImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-bremsen/skater-bremsen-${number}.png`);
   preJumpImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sprungvorbereitung/skater-sprungvorbereitung-${number}.png`);
+  deadImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sturz/skater-sturz--${number}.png`);
   world;
   currentImage = 0;
   altePosition = this.x;
@@ -24,16 +25,17 @@ class Character extends MovableObj {
   animate() {
     setInterval(() => {
       if (this.isDead()) {
+        this.animation(this.deadImages);
       }
       if (this.isAbouveGround() || this.speedY > 0) {
         this.fallAnimation();
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-        this.leftRightAnimation();
-      } else if (this.x !== this.altePosition) {
-        this.stopAnimation();
+        this.animation(this.rideImages);
+      } else if (this.world.keyboard.SPACE) {
+        this.animation(this.preJumpImages);
         console.log('Der Charakter fährt');
       } else {
-        this.standAnimation();
+        this.animation(this.standImages);
         console.log('Der Charakter steht');
       }
     }, 100);
@@ -58,29 +60,13 @@ class Character extends MovableObj {
     }, 1000 / 60);
   }
 
-  preJumpAnimation() {
-    const i = this.currentImage % this.preJumpImages.length;
-    this.img = this.imageCache[this.preJumpImages[i]];
+  animation(picturesArray) {
+    const i = this.currentImage % picturesArray.length;
+
+    this.img = this.imageCache[picturesArray[i]];
     this.currentImage++;
   }
 
-  stopAnimation() {
-    const i = this.currentImage % this.stopImages.length;
-    this.img = this.imageCache[this.stopImages[i]];
-    this.currentImage++;
-  }
-
-  standAnimation() {
-    const i = this.currentImage % this.standImages.length;
-    this.img = this.imageCache[this.standImages[i]];
-    this.currentImage++;
-  }
-
-  leftRightAnimation() {
-    const i = this.currentImage % this.rideImages.length;
-    this.img = this.imageCache[this.rideImages[i]];
-    this.currentImage++;
-  }
   fallAnimation() {
     let frame = 3;
     if (this.speedY > 10) frame = 0;
