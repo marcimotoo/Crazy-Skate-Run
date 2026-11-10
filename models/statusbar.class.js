@@ -1,13 +1,13 @@
 class StatusBar extends DrawableObject {
   x = 20;
   y = 20;
-  width = 100;
-  height = 50;
+  width = 150;
+  height = 33;
   balanceBar = [0, 20, 40, 60, 80, 100].map((number) => `assets/img/statusleisten/gleichgewicht/gleichgewicht-${number}.png`);
-  constructor(path) {
+  constructor() {
     super();
-    this.loadImage[this.balanceBar[0]];
-    this.loadImages([...this.balanceBar]);
+    this.loadImage(this.balanceBar[5]);
+    this.loadMultiImages(this.balanceBar);
     // this.statusBar;
   }
 

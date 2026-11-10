@@ -14,8 +14,8 @@ class Character extends MovableObj {
   altePosition = this.x;
   constructor() {
     super();
-    this.loadImage(this.rideImages[0]);
-    this.loadImages([...this.rideImages, ...this.standImages, ...this.jumpImages, ...this.stopImages, ...this.preJumpImages]);
+    this.loadImage(this.standImages[0]);
+    this.loadMultiImages([...this.rideImages, ...this.standImages, ...this.jumpImages, ...this.stopImages, ...this.preJumpImages]);
 
     this.animate();
     this.controlCharacter();

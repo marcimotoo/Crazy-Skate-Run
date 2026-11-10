@@ -8,6 +8,7 @@ class DrawableObject {
   imageCache = {};
   currentImage = 0;
   constructor() {}
+  // Zeichnet das aktuelle Bild dieses Objekts auf die Spielfläche.
   draw(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
   }
@@ -18,7 +19,7 @@ class DrawableObject {
     this.animate;
   }
 
-  loadImages(arr) {
+  loadMultiImages(arr) {
     arr.forEach((path) => {
       const img = new Image();
       img.src = path;

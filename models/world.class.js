@@ -1,49 +1,61 @@
 class World {
-  status = new StatusBar('assets/img/statusleisten/gleichgewicht/gleichgewicht-0.png');
-  character = new Character('./assets/img/charaktere/skater-hocken.png');
+  balanceLife = new StatusBar();
+  character = new Character();
   level = level1;
   canvas;
   ctx;
   keyboard;
   camera_x = 0;
   constructor(canvas, keyboard) {
+    // Der Zeichenkontext zeichnet auf das Canvas; keyboard speichert die Tasten.
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
     this.keyboard = keyboard;
-    this.draw();
+    this.drawWorld();
     this.setWorld();
     this.checkCollision();
   }
 
+  // Gibt dem Charakter Zugriff auf diese Welt und ihre Tastatur.
   setWorld() {
     this.character.world = this;
   }
 
-  draw() {
+  // Zeichnet die ganze Spielwelt und fordert danach das nächste Bild an.
+  drawWorld() {
+    // Löscht das vorige Bild, bevor die Szene neu gezeichnet wird.
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+    // Verschiebt die Spielwelt passend zur Kamera.
     this.ctx.translate(this.camera_x, 0);
 
+    // Die Reihenfolge bestimmt, welche Objekte über anderen erscheinen.
     this.addObjectsToMap(this.level.backgroundObjects);
 
     this.addToMap(this.character);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
 
+    // Nimmt die Kameraverschiebung für die feste Anzeige zurück.
     this.ctx.translate(-this.camera_x, 0);
-
+    // Die Statusleiste bleibt an ihrer Position auf dem Bildschirm.
+    this.balanceLife.draw(this.ctx);
+    // Merkt die Welt, damit die Funktion unten auf sie zugreifen kann.
     const self = this;
+    // Der Browser ruft die Funktion vor dem nächsten Bild auf.
     requestAnimationFrame(function () {
-      self.draw();
+      self.drawWorld();
     });
   }
 
+  // Geht eine Liste durch und zeichnet jedes Objekt einzeln.
   addObjectsToMap(parameter) {
     parameter.forEach((object) => {
       this.addToMap(object);
     });
   }
 
+  // Zeichnet ein bewegliches Objekt und bei Bedarf seinen Rahmen.
   addToMap(mo) {
     this.flipImage(mo);
 
@@ -53,6 +65,7 @@ class World {
     this.flipImageBack(mo);
   }
 
+  // Spiegelt das Objekt, wenn es in die andere Richtung schaut.
   flipImage(mo) {
     if (mo.otherDirection) {
       this.ctx.save();
@@ -61,6 +74,7 @@ class World {
       mo.x = mo.x * -1;
     }
   }
+  // Stellt nach dem Zeichnen Position und Zeichenrichtung wieder her.
   flipImageBack(mo) {
     if (mo.otherDirection) {
       mo.x = mo.x * -1;
@@ -68,11 +82,12 @@ class World {
     }
   }
 
+  // Prüft jede Sekunde, ob der Charakter einen Gegner berührt.
   checkCollision() {
     setInterval(() => {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy)) {
-          this.character.hit();
+          this.character.hit(); // Ein Treffer verringert die Energie.
 
           console.log('collision with character', this.character.energy);
         }

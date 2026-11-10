@@ -16,7 +16,7 @@ class Secruity extends MovableObj {
   constructor() {
     super();
     this.loadImage('assets/img/charaktere/security-laufen-export/security-laufen-01.png');
-    this.loadImages(this.charArray.map((pose) => pose.path));
+    this.loadMultiImages(this.charArray.map((pose) => pose.path));
     this.x = 200 + Math.random() * 500;
 
     this.animate();
