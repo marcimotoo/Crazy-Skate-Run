@@ -13,6 +13,7 @@ const keyMapping = {
   KeyW: 'UP',
   KeyS: 'DOWN',
   Space: 'SPACE',
+  KeyF: 'THROW',
 };
 
 function handleKeyboard(event, isPressed) {

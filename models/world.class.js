@@ -1,6 +1,7 @@
 class World {
   balanceLife = new StatusBar();
   character = new Character();
+  energyDose = new ThrowableObject();
   level = level1;
   canvas;
   ctx;
