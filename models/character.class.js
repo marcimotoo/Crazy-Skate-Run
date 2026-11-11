@@ -8,14 +8,15 @@ class Character extends MovableObj {
   standImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-idle/skater-idle-${number}.png`);
   stopImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-bremsen/skater-bremsen-${number}.png`);
   preJumpImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sprungvorbereitung/skater-sprungvorbereitung-${number}.png`);
-  deadImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sturz/skater-sturz--${number}.png`);
+  deadImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sturz/skater-sturz-${number}.png`);
+  hurtImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-treffer/skater-treffer-${number}.png`);
   world;
   currentImage = 0;
   altePosition = this.x;
   constructor() {
     super();
     this.loadImage(this.standImages[0]);
-    this.loadMultiImages([...this.rideImages, ...this.standImages, ...this.jumpImages, ...this.stopImages, ...this.preJumpImages]);
+    this.loadMultiImages([...this.rideImages, ...this.standImages, ...this.jumpImages, ...this.stopImages, ...this.preJumpImages, ...this.deadImages, ...this.hurtImages]);
 
     this.animate();
     this.controlCharacter();
@@ -26,8 +27,10 @@ class Character extends MovableObj {
     setInterval(() => {
       if (this.isDead()) {
         this.animation(this.deadImages);
-      }
-      if (this.isAbouveGround() || this.speedY > 0) {
+      } else if (this.isHurt()) {
+        const frame = Math.floor((Date.now() - this.lastHit) / 100);
+        this.img = this.imageCache[this.hurtImages[frame]];
+      } else if (this.isAbouveGround() || this.speedY > 0) {
         this.fallAnimation();
       } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
         this.animation(this.rideImages);
@@ -60,7 +63,6 @@ class Character extends MovableObj {
 
   animation(picturesArray) {
     const i = this.currentImage % picturesArray.length;
-
     this.img = this.imageCache[picturesArray[i]];
     this.currentImage++;
   }

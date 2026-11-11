@@ -39,16 +39,6 @@ class MovableObj extends DrawableObject {
     this.speedY = 15;
   }
 
-  drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Secruity) {
-      ctx.beginPath();
-      ctx.lineWidth = '2';
-      ctx.strokeStyle = 'red';
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
-  }
-
   isColliding(mo) {
     return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
   }
@@ -69,12 +59,11 @@ class MovableObj extends DrawableObject {
   }
 
   isHurt() {
-    const timePassed = new Date().getTime() - this.lastHit; // difference in ms
-    timePassed = timePassed / 1000;
-    return timePassed < 1;
+    const timePassed = new Date().getTime() - this.lastHit;
+    return timePassed < 400;
   }
 
   isDead() {
-    return this.energy == 0;
+    return this.energy === 0;
   }
 }

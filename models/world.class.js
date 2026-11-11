@@ -88,7 +88,7 @@ class World {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy)) {
           this.character.hit(); // Ein Treffer verringert die Energie.
-
+          this.balanceLife.setPercentage(this.character.energy);
           console.log('collision with character', this.character.energy);
         }
       });
