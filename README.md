@@ -1,4 +1,4 @@
-﻿# Polo Loco oder so
+﻿# Crazy Skate Run
 
 Ein Browser-Spiel in Entwicklung mit HTML, CSS und JavaScript. Aktuell werden eine Spielfigur, Hindernisse, Wolken und urbane Hintergrundebenen auf einem Canvas dargestellt.
 
