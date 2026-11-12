@@ -12,7 +12,7 @@ class MovableObj extends DrawableObject {
 
   isAbouveGround() {
     if (this instanceof ThrowableObject) {
-      return this.y < 500;
+      return true;
     } else {
       return this.y < 350;
     }

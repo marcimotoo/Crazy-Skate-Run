@@ -1,7 +1,7 @@
 class World {
   balanceLife = new StatusBar();
   character = new Character();
-  energyDose = new ThrowableObject();
+  throwableObject = [];
   level = level1;
   canvas;
   ctx;
@@ -14,7 +14,7 @@ class World {
     this.keyboard = keyboard;
     this.drawWorld();
     this.setWorld();
-    this.checkCollision();
+    this.run();
   }
 
   // Gibt dem Charakter Zugriff auf diese Welt und ihre Tastatur.
@@ -34,7 +34,7 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
 
     this.addToMap(this.character);
-    this.addToMap(this.energyDose);
+    this.addObjectsToMap(this.throwableObject);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
 
@@ -85,15 +85,27 @@ class World {
   }
 
   // Prüft jede Sekunde, ob der Charakter einen Gegner berührt.
-  checkCollision() {
+  run() {
     setInterval(() => {
-      this.level.enemies.forEach((enemy) => {
-        if (this.character.isColliding(enemy)) {
-          this.character.hit(); // Ein Treffer verringert die Energie.
-          this.balanceLife.setPercentage(this.character.energy);
-          console.log('collision with character', this.character.energy);
-        }
-      });
-    }, 1000);
+      this.checkCollisions();
+      this.checkThrowObjects();
+    }, 200);
+  }
+
+  checkThrowObjects() {
+    if (this.keyboard.THROW) {
+      let bottle = new ThrowableObject(this.character.x, this.character.y);
+      this.throwableObject.push(bottle);
+    }
+  }
+
+  checkCollisions() {
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
+        this.character.hit(); // Ein Treffer verringert die Energie.
+        this.balanceLife.setPercentage(this.character.energy);
+        console.log('collision with character', this.character.energy);
+      }
+    });
   }
 }

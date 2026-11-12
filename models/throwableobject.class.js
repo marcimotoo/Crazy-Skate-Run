@@ -5,19 +5,19 @@ class ThrowableObject extends MovableObj {
   width = this.setWH;
   height = this.setWH;
 
-  constructor() {
+  constructor(x, y) {
     super();
-    this.loadImage('assets/img/entwuerfe/wurfanimation/energydose.png');
-    this.throw(120, 350);
-  }
-
-  throw(x, y) {
     this.x = x;
     this.y = y;
-    this.speedY = 15;
+    this.loadImage('assets/img/entwuerfe/wurfanimation/energydose.png');
+    this.throw();
+  }
+
+  throw() {
+    this.speedY = 10;
     this.fall();
     setInterval(() => {
-      this.x += 20;
+      this.x += 15;
     }, 50);
   }
 }
