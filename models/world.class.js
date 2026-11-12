@@ -34,6 +34,7 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
 
     this.addToMap(this.character);
+    this.addToMap(this.energyDose);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
 
