@@ -70,4 +70,10 @@ class MovableObj extends DrawableObject {
   isDead() {
     return this.energy === 0;
   }
+
+  animation(picturesArray) {
+    const i = this.currentImage % picturesArray.length;
+    this.img = this.imageCache[picturesArray[i]];
+    this.currentImage++;
+  }
 }

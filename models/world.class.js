@@ -1,6 +1,7 @@
 class World {
   balanceLife = new StatusBar();
   character = new Character();
+  endboss = new Endboss();
   throwableObject = [];
   level = level1;
   canvas;
@@ -37,6 +38,7 @@ class World {
     this.addObjectsToMap(this.throwableObject);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
+    this.addToMap(this.endboss);
 
     // Nimmt die Kameraverschiebung für die feste Anzeige zurück.
     this.ctx.translate(-this.camera_x, 0);
