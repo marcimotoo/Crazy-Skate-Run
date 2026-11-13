@@ -1,7 +1,6 @@
 class World {
   balanceLife = new StatusBar();
   character = new Character();
-  endboss = new Endboss();
   throwableObject = [];
   level = level1;
   canvas;
@@ -16,6 +15,7 @@ class World {
     this.drawWorld();
     this.setWorld();
     this.run();
+    this.followCharakter();
   }
 
   // Gibt dem Charakter Zugriff auf diese Welt und ihre Tastatur.
@@ -38,7 +38,7 @@ class World {
     this.addObjectsToMap(this.throwableObject);
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
-    this.addToMap(this.endboss);
+    this.addObjectsToMap(this.level.endboss);
 
     // Nimmt die Kameraverschiebung für die feste Anzeige zurück.
     this.ctx.translate(-this.camera_x, 0);
@@ -107,6 +107,18 @@ class World {
         this.character.hit(); // Ein Treffer verringert die Energie.
         this.balanceLife.setPercentage(this.character.energy);
         console.log('collision with character', this.character.energy);
+      }
+    });
+  }
+
+  followCharakter() {
+    this.level.enemies.forEach((enemy) => {
+      console.log(this.level.enemies);
+
+      if (this.character.x > enemy.x) {
+        enemy.autoRunRight();
+      } else {
+        enemy.autoRunLeft();
       }
     });
   }

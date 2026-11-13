@@ -35,8 +35,20 @@ class MovableObj extends DrawableObject {
     this.x += this.speed;
   }
 
+  autoRunRight() {
+    setInterval(() => {
+      this.moveRight();
+    }, 100);
+  }
+
   moveLeft() {
     this.x -= this.speed;
+  }
+
+  autoRunLeft() {
+    setInterval(() => {
+      this.moveLeft();
+    }, 100);
   }
 
   jump() {
@@ -75,5 +87,9 @@ class MovableObj extends DrawableObject {
     const i = this.currentImage % picturesArray.length;
     this.img = this.imageCache[picturesArray[i]];
     this.currentImage++;
+  }
+
+  follow() {
+    this.setFollow();
   }
 }

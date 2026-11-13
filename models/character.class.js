@@ -16,7 +16,15 @@ class Character extends MovableObj {
   constructor() {
     super();
     this.loadImage(this.standImages[0]);
-    this.loadMultiImages([...this.rideImages, ...this.standImages, ...this.jumpImages, ...this.stopImages, ...this.preJumpImages, ...this.deadImages, ...this.hurtImages]);
+    this.loadMultiImages([
+      ...this.rideImages,
+      ...this.standImages,
+      ...this.jumpImages,
+      ...this.stopImages,
+      ...this.preJumpImages,
+      ...this.deadImages,
+      ...this.hurtImages,
+    ]);
 
     this.animate();
     this.controlCharacter();
@@ -59,12 +67,6 @@ class Character extends MovableObj {
 
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
-  }
-
-  animation(picturesArray) {
-    const i = this.currentImage % picturesArray.length;
-    this.img = this.imageCache[picturesArray[i]];
-    this.currentImage++;
   }
 
   fallAnimation() {

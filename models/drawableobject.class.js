@@ -28,7 +28,7 @@ class DrawableObject {
   }
 
   drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Secruity) {
+    if (this instanceof Character || this instanceof Secruity || this instanceof Endboss) {
       ctx.beginPath();
       ctx.lineWidth = '2';
       ctx.strokeStyle = 'red';

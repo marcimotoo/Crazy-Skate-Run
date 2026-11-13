@@ -17,14 +17,13 @@ class Secruity extends MovableObj {
     super();
     this.loadImage('assets/img/charaktere/security-laufen-export/security-laufen-01.png');
     this.loadMultiImages(this.charArray.map((pose) => pose.path));
-    this.x = 200 + Math.random() * 500;
+    // this.x = 200 + Math.random() * 500;
 
     this.animate();
   }
 
   animate() {
     setInterval(() => {
-      this.moveLeft();
       const i = this.currentImage % this.charArray.length;
       const pose = this.charArray[i];
       this.img = this.imageCache[pose.path];

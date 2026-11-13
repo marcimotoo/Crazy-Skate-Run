@@ -11,4 +11,5 @@ const level1 = new Level(
     new BackgroundObject('./assets/img/hintergruende/haeuser-vorne.png', 720, 720, 480),
     new BackgroundObject('./assets/img/hintergruende/strasse-breit.png', 720, 720, 50),
   ],
+  [new Endboss()],
 );
