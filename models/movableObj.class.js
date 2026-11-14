@@ -35,24 +35,12 @@ class MovableObj extends DrawableObject {
     this.x += this.speed;
   }
 
-  autoRunRight() {
-    setInterval(() => {
-      this.moveRight();
-    }, 100);
-  }
-
   moveLeft() {
     this.x -= this.speed;
   }
 
-  autoRunLeft() {
-    setInterval(() => {
-      this.moveLeft();
-    }, 100);
-  }
-
   jump() {
-    this.speedY = 15;
+    this.speedY = 18;
   }
 
   isColliding(mo) {

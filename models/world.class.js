@@ -113,13 +113,13 @@ class World {
 
   followCharakter() {
     this.level.enemies.forEach((enemy) => {
-      console.log(this.level.enemies);
-
-      if (this.character.x > enemy.x) {
-        enemy.autoRunRight();
-      } else {
-        enemy.autoRunLeft();
-      }
+      setInterval(() => {
+        if (this.character.x > enemy.x) {
+          enemy.moveRight();
+        } else {
+          enemy.moveLeft();
+        }
+      }, 100);
     });
   }
 }
