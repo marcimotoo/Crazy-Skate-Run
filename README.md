@@ -1,6 +1,6 @@
 ﻿# Crazy Skate Run
 
-Ein Browser-Spiel in Entwicklung mit HTML, CSS und JavaScript. Aktuell werden eine Spielfigur, Hindernisse, Wolken und urbane Hintergrundebenen auf einem Canvas dargestellt.
+Ein Browser-Spiel in Entwicklung mit HTML, CSS und JavaScript. Auf einem Canvas fährt ein Skater durch eine urbane Kulisse. Gegner verfolgen ihn und er kann sie mit Flaschen treffen.
 
 ## Starten
 

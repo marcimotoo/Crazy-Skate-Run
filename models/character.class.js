@@ -2,7 +2,7 @@ class Character extends MovableObj {
   y = 350;
   width = 63;
   height = 100;
-  speed = 5;
+  speed = 8;
   rideImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-animation/skater-${number}.png`);
   jumpImages = [5, 6, 7, 8].map((number) => `assets/img/charaktere/skater-animation/skater-${number}.png`);
   standImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-idle/skater-idle-${number}.png`);

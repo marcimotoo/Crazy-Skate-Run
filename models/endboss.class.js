@@ -5,9 +5,10 @@ class Endboss extends MovableObj {
   endbossTreffer = [1, 2, 3, 4].map((number) => `assets/img/charaktere/polizist-segway/treffer/treffer-${number}.png`);
 
   x = 400;
-  y = 280;
-  width = 200;
-  height = 200;
+  y = 310;
+  width = 150;
+  height = 150;
+  speed = 2;
 
   constructor() {
     super();

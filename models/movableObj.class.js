@@ -3,8 +3,9 @@ class MovableObj extends DrawableObject {
   otherDirection = false;
   speedY = 0;
   acceleration = 1;
-  energy = 100;
+  health = 100;
   lastHit = 0;
+  damage = 20;
 
   constructor() {
     super();
@@ -23,7 +24,7 @@ class MovableObj extends DrawableObject {
       if (this.isAbouveGround() || this.speedY > 0) {
         this.fallPhysic();
       }
-    }, 1000 / 25);
+    }, 1000 / 30);
   }
 
   fallPhysic() {
@@ -54,9 +55,9 @@ class MovableObj extends DrawableObject {
   // )
 
   hit() {
-    this.energy -= 20;
-    if (this.energy < 0) {
-      this.energy = 0;
+    this.health -= this.damage;
+    if (this.health < 0) {
+      this.health = 0;
     } else {
       this.lastHit = new Date().getTime();
     }
@@ -68,7 +69,7 @@ class MovableObj extends DrawableObject {
   }
 
   isDead() {
-    return this.energy === 0;
+    return this.health === 0;
   }
 
   animation(picturesArray) {

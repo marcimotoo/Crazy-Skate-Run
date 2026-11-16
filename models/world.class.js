@@ -7,6 +7,7 @@ class World {
   ctx;
   keyboard;
   camera_x = 0;
+  hasThrown = false;
   constructor(canvas, keyboard) {
     // Der Zeichenkontext zeichnet auf das Canvas; keyboard speichert die Tasten.
     this.ctx = canvas.getContext('2d');
@@ -15,7 +16,6 @@ class World {
     this.drawWorld();
     this.setWorld();
     this.run();
-    this.followCharakter();
   }
 
   // Gibt dem Charakter Zugriff auf diese Welt und ihre Tastatur.
@@ -88,38 +88,66 @@ class World {
 
   // Prüft jede Sekunde, ob der Charakter einen Gegner berührt.
   run() {
-    setInterval(() => {
-      this.checkCollisions();
-      this.checkThrowObjects();
-    }, 200);
-  }
+    const enemys = [this.level.enemies, this.level.endboss];
 
-  checkThrowObjects() {
-    if (this.keyboard.THROW) {
-      let bottle = new ThrowableObject(this.character.x, this.character.y);
-      this.throwableObject.push(bottle);
-    }
-  }
+    this.throwBottle();
 
-  checkCollisions() {
-    this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
-        this.character.hit(); // Ein Treffer verringert die Energie.
-        this.balanceLife.setPercentage(this.character.energy);
-        console.log('collision with character', this.character.energy);
-      }
+    enemys.forEach((enemy) => {
+      this.checkCollisions(enemy);
+      this.checkCollisionsThrowObjects(enemy);
+      this.followCharakter(enemy);
     });
   }
 
-  followCharakter() {
-    this.level.enemies.forEach((enemy) => {
+  throwBottle() {
+    setInterval(() => {
+      if (this.keyboard.THROW && !this.hasThrown) {
+        let bottle = new ThrowableObject(this.character.x, this.character.y);
+        this.throwableObject.push(bottle);
+        this.hasThrown = true;
+      }
+      if (!this.keyboard.THROW) {
+        this.hasThrown = false;
+      }
+    }, 1000 / 30);
+  }
+
+  checkCollisions(enemyArray) {
+    enemyArray.forEach((enemy) => {
+      setInterval(() => {
+        if (this.character.isColliding(enemy) && !this.character.isHurt()) {
+          this.character.hit(); // Ein Treffer verringert die Energie.
+          this.balanceLife.setPercentage(this.character.health);
+        }
+      }, 1000 / 30);
+    });
+  }
+
+  checkCollisionsThrowObjects(enemie) {
+    setInterval(() => {
+      this.throwableObject.forEach((bottle) => {
+        enemie.forEach((enemy) => {
+          if (bottle.isColliding(enemy)) {
+            enemy.hit();
+          }
+          if (enemy.isDead()) {
+          }
+        });
+      });
+    }, 1000 / 30);
+  }
+
+  followCharakter(enemyArray) {
+    enemyArray.forEach((enemy) => {
       setInterval(() => {
         if (this.character.x > enemy.x) {
           enemy.moveRight();
+          enemy.otherDirection = true;
         } else {
           enemy.moveLeft();
+          enemy.otherDirection = false;
         }
-      }, 100);
+      }, 1000 / 30);
     });
   }
 }
