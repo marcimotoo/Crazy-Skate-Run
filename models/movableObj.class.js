@@ -1,11 +1,13 @@
 class MovableObj extends DrawableObject {
   speed = 0.15;
-  otherDirection = false;
   speedY = 0;
   acceleration = 1;
   health = 100;
   lastHit = 0;
   damage = 20;
+  currentImage = 0;
+  deathAnimation = false;
+  otherDirection = false;
 
   constructor() {
     super();
@@ -48,12 +50,6 @@ class MovableObj extends DrawableObject {
     return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
   }
 
-  //   if (character.x + character.width > chicken.x &&
-  // character.y + character.height > chicken.y &&
-  // character.x < chicken.x &&
-  // character.y < chicken.y + chicken.height
-  // )
-
   hit() {
     this.health -= this.damage;
     if (this.health < 0) {
@@ -72,13 +68,24 @@ class MovableObj extends DrawableObject {
     return this.health === 0;
   }
 
-  animation(picturesArray) {
+  deadStatusReset() {
+    this.currentImage = 0;
+    this.deathAnimation = true;
+  }
+
+  playAnimation(picturesArray) {
     const i = this.currentImage % picturesArray.length;
     this.img = this.imageCache[picturesArray[i]];
     this.currentImage++;
   }
 
-  follow() {
-    this.setFollow();
+  playOneAnimation(picturesArray) {
+    let i = this.currentImage;
+    this.img = this.imageCache[picturesArray[i]];
+    if (i < picturesArray.length - 1) {
+      this.currentImage++;
+    } else {
+      this.currentImage = picturesArray.length - 1;
+    }
   }
 }

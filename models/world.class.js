@@ -102,24 +102,26 @@ class World {
   throwBottle() {
     setInterval(() => {
       if (this.keyboard.THROW && !this.hasThrown) {
-        let bottle = new ThrowableObject(this.character.x, this.character.y);
+        let bottle = new ThrowableObject(this.character.x, this.character.y, this.character.otherDirection);
         this.throwableObject.push(bottle);
         this.hasThrown = true;
       }
       if (!this.keyboard.THROW) {
         this.hasThrown = false;
       }
-    }, 1000 / 30);
+    }, 1000 / 15);
   }
 
   checkCollisions(enemyArray) {
     enemyArray.forEach((enemy) => {
       setInterval(() => {
-        if (this.character.isColliding(enemy) && !this.character.isHurt()) {
-          this.character.hit(); // Ein Treffer verringert die Energie.
-          this.balanceLife.setPercentage(this.character.health);
+        if (!enemy.isDead()) {
+          if (this.character.isColliding(enemy) && !this.character.isHurt()) {
+            this.character.hit(); // Ein Treffer verringert die Energie.
+            this.balanceLife.setPercentage(this.character.health);
+          }
         }
-      }, 1000 / 30);
+      }, 100);
     });
   }
 
@@ -127,27 +129,30 @@ class World {
     setInterval(() => {
       this.throwableObject.forEach((bottle) => {
         enemie.forEach((enemy) => {
-          if (bottle.isColliding(enemy)) {
-            enemy.hit();
-          }
-          if (enemy.isDead()) {
+          if (!enemy.isDead()) {
+            if (bottle.isColliding(enemy)) {
+              enemy.hit();
+              this.throwableObject.splice(0);
+            }
           }
         });
       });
-    }, 1000 / 30);
+    }, 100);
   }
 
   followCharakter(enemyArray) {
     enemyArray.forEach((enemy) => {
       setInterval(() => {
-        if (this.character.x > enemy.x) {
-          enemy.moveRight();
-          enemy.otherDirection = true;
-        } else {
-          enemy.moveLeft();
-          enemy.otherDirection = false;
+        if (!enemy.isDead()) {
+          if (this.character.x > enemy.x) {
+            enemy.moveRight();
+            enemy.otherDirection = true;
+          } else {
+            enemy.moveLeft();
+            enemy.otherDirection = false;
+          }
         }
-      }, 1000 / 30);
+      }, 1000 / 15);
     });
   }
 }

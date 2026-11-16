@@ -4,7 +4,7 @@ class Endboss extends MovableObj {
   endbossFahren = [1, 2, 3, 4].map((number) => `assets/img/charaktere/polizist-segway/fahren/fahren-${number}.png`);
   endbossTreffer = [1, 2, 3, 4].map((number) => `assets/img/charaktere/polizist-segway/treffer/treffer-${number}.png`);
 
-  x = 400;
+  x = 10000;
   y = 310;
   width = 150;
   height = 150;
@@ -18,10 +18,13 @@ class Endboss extends MovableObj {
   }
 
   animate() {
-    setInterval(() => {
-      if (this.x) {
-        this.animation(this.endbossAngriff);
-      }
-    }, 100);
+    if (this.isDead()) {
+      this.playAnimation(this.endbossBesiegt);
+    }
+    // setInterval(() => {
+    //   if (this.x) {
+    //     this.animation(this.endbossAngriff);
+    //   }
+    // }, 100);
   }
 }

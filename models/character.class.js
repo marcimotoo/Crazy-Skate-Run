@@ -11,8 +11,8 @@ class Character extends MovableObj {
   deadImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sturz/skater-sturz-${number}.png`);
   hurtImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-treffer/skater-treffer-${number}.png`);
   world;
-  currentImage = 0;
   altePosition = this.x;
+  health = 100;
   constructor() {
     super();
     this.loadImage(this.standImages[0]);
@@ -33,38 +33,23 @@ class Character extends MovableObj {
 
   animate() {
     setInterval(() => {
-      if (this.isDead()) {
-        this.animation(this.deadImages);
-      } else if (this.isHurt()) {
-        const frame = Math.floor((Date.now() - this.lastHit) / 100);
-        this.img = this.imageCache[this.hurtImages[frame]];
-      } else if (this.isAbouveGround() || this.speedY > 0) {
-        this.fallAnimation();
-      } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-        this.animation(this.rideImages);
-      } else if (this.world.keyboard.SPACE) {
-        this.animation(this.preJumpImages);
+      if (!this.isDead()) {
+        this.actionIfElse();
       } else {
-        this.animation(this.standImages);
+        if (!this.deathAnimation) {
+          this.deadStatusReset();
+        }
+        this.playOneAnimation(this.deadImages);
       }
     }, 100);
   }
 
   controlCharacter() {
     setInterval(() => {
-      if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x) {
-        this.moveRight();
-        this.otherDirection = false;
+      if (!this.isDead()) {
+        this.controls();
+      } else {
       }
-      if (this.world.keyboard.LEFT && this.x >= 110) {
-        this.moveLeft();
-        this.otherDirection = true;
-      }
-
-      if (this.world.keyboard.SPACE && !this.isAbouveGround()) {
-        this.jump();
-      }
-
       this.world.camera_x = -this.x + 100;
     }, 1000 / 60);
   }
@@ -75,5 +60,34 @@ class Character extends MovableObj {
     else if (this.speedY > 4) frame = 1;
     else if (this.speedY > -6) frame = 2;
     this.img = this.imageCache[this.jumpImages[frame]];
+  }
+
+  actionIfElse() {
+    if (this.isHurt()) {
+      const frame = Math.floor((Date.now() - this.lastHit) / 100);
+      this.img = this.imageCache[this.hurtImages[frame]];
+    } else if (this.isAbouveGround() || this.speedY > 0) {
+      this.fallAnimation();
+    } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+      this.playAnimation(this.rideImages);
+    } else if (this.world.keyboard.SPACE) {
+      this.playAnimation(this.preJumpImages);
+    } else {
+      this.playAnimation(this.standImages);
+    }
+  }
+
+  controls() {
+    if (this.world.keyboard.RIGHT && this.x <= this.world.level.level_end_x) {
+      this.moveRight();
+      this.otherDirection = false;
+    }
+    if (this.world.keyboard.LEFT && this.x >= 110) {
+      this.moveLeft();
+      this.otherDirection = true;
+    }
+    if (this.world.keyboard.SPACE && !this.isAbouveGround()) {
+      this.jump();
+    }
   }
 }

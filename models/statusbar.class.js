@@ -8,7 +8,7 @@ class StatusBar extends DrawableObject {
   constructor() {
     super();
     this.loadMultiImages(this.balanceBar);
-    this.setPercentage(100);
+    this.setPercentage(this.percentage);
   }
 
   setPercentage(percentage) {

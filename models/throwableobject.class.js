@@ -1,23 +1,27 @@
 class ThrowableObject extends MovableObj {
-  speedY = 30;
-  speedX = 20;
+  speedY = 5;
+  speedX = 40;
   setWH = 40;
   width = this.setWH;
   height = this.setWH;
 
-  constructor(x, y) {
+  constructor(x, y, otherDirection) {
     super();
     this.x = x;
     this.y = y;
+    this.otherDirection = otherDirection;
     this.loadImage('assets/img/entwuerfe/wurfanimation/energydose.png');
     this.throw();
   }
 
   throw() {
-    this.speedY = 10;
     this.fall();
     setInterval(() => {
-      this.x += 15;
+      if (this.otherDirection) {
+        this.x -= this.speedX;
+      } else {
+        this.x += this.speedX;
+      }
     }, 50);
   }
 }
