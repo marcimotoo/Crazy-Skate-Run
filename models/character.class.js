@@ -19,6 +19,13 @@ class Character extends MovableObj {
   health = 100;
   jumped = false;
 
+  offset = {
+    top: 8,
+    right: 15,
+    bottom: 12,
+    left: 15,
+  };
+
   constructor() {
     super();
     this.loadImage(this.standImages[0]);

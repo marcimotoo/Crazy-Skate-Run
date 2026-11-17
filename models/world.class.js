@@ -64,9 +64,10 @@ class World {
     this.flipImage(mo);
 
     mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
+    // mo.drawFrame(this.ctx);
 
     this.flipImageBack(mo);
+    // mo.drawHitboxFrame(this.ctx);
   }
 
   // Spiegelt das Objekt, wenn es in die andere Richtung schaut.

@@ -28,11 +28,32 @@ class DrawableObject {
   }
 
   drawFrame(ctx) {
-    if (this instanceof Character || this instanceof Secruity || this instanceof Endboss) {
+    if (
+      this instanceof Character ||
+      this instanceof Secruity ||
+      this instanceof Endboss ||
+      this instanceof ThrowableObject
+    ) {
       ctx.beginPath();
       ctx.lineWidth = '2';
       ctx.strokeStyle = 'red';
       ctx.rect(this.x, this.y, this.width, this.height);
+      ctx.stroke();
+    }
+  }
+
+  drawHitboxFrame(ctx) {
+    if (
+      this instanceof Character ||
+      this instanceof Secruity ||
+      this instanceof Endboss ||
+      this instanceof ThrowableObject
+    ) {
+      this.getRealFrame();
+      ctx.beginPath();
+      ctx.lineWidth = '2';
+      ctx.strokeStyle = 'blue';
+      ctx.rect(this.realX, this.realY, this.realW, this.realH);
       ctx.stroke();
     }
   }

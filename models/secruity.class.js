@@ -13,10 +13,10 @@ class Secruity extends MovableObj {
   damage = 50;
 
   offset = {
-    top: 30,
-    right: 10,
-    bottom: 20,
-    left: 15,
+    top: 5,
+    right: 32,
+    bottom: 5,
+    left: 32,
   };
 
   constructor() {
@@ -38,6 +38,6 @@ class Secruity extends MovableObj {
         }
         this.playOneAnimation(this.deadImage);
       }
-    }, 1000 / 15);
+    }, 1000 / 8);
   }
 }
