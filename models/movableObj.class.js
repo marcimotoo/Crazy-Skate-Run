@@ -1,4 +1,8 @@
 class MovableObj extends DrawableObject {
+  x;
+  y;
+  width;
+  height;
   speed = 0.15;
   speedY = 0;
   acceleration = 1;
@@ -9,8 +13,38 @@ class MovableObj extends DrawableObject {
   deathAnimation = false;
   otherDirection = false;
 
+  realX;
+  realY;
+  realW;
+  realH;
+
+  offset = {
+    top: 30,
+    right: 10,
+    bottom: 20,
+    left: 15,
+  };
+
   constructor() {
     super();
+  }
+
+  getRealFrame() {
+    this.realX = this.x + this.offset.left;
+    this.realY = this.y + this.offset.top;
+    this.realW = this.width - this.offset.left - this.offset.right;
+    this.realH = this.height - this.offset.top - this.offset.bottom;
+  }
+
+  isColliding(mo) {
+    this.getRealFrame();
+    mo.getRealFrame();
+    return (
+      this.realX + this.realW > mo.realX &&
+      this.realY + this.realH > mo.realY &&
+      this.realX < mo.realX + mo.realW &&
+      this.realY < mo.realY + mo.realH
+    );
   }
 
   isAbouveGround() {
@@ -44,10 +78,6 @@ class MovableObj extends DrawableObject {
 
   jump() {
     this.speedY = 18;
-  }
-
-  isColliding(mo) {
-    return this.x + this.width > mo.x && this.y + this.height > mo.y && this.x < mo.x && this.y < mo.y + mo.height;
   }
 
   hit() {

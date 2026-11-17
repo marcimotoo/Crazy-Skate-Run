@@ -3,7 +3,9 @@ class StatusBar extends DrawableObject {
   y = 20;
   width = 150;
   height = 33;
-  balanceBar = [0, 20, 40, 60, 80, 100].map((number) => `assets/img/statusleisten/gleichgewicht/gleichgewicht-${number}.png`);
+  balanceBar = [0, 20, 40, 60, 80, 100].map(
+    (number) => `assets/img/statusleisten/gleichgewicht/gleichgewicht-${number}.png`,
+  );
   percentage = 100;
   constructor() {
     super();

@@ -5,6 +5,13 @@ class ThrowableObject extends MovableObj {
   width = this.setWH;
   height = this.setWH;
 
+  offset = {
+    top: 5,
+    right: 5,
+    bottom: 5,
+    left: 5,
+  };
+
   constructor(x, y, otherDirection) {
     super();
     this.x = x;

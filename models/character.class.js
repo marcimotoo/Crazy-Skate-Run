@@ -1,18 +1,24 @@
 class Character extends MovableObj {
+  rideImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-animation/skater-${number}.png`);
+  jumpImages = Array.from({ length: 12 }, (_, index) => `assets/img/charaktere/skater-ollie/ollie-${index + 1}.png`);
+  standImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-idle/skater-idle-${number}.png`);
+  stopImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-bremsen/skater-bremsen-${number}.png`);
+  preJumpImages = [1, 2, 3, 4].map(
+    (number) => `assets/img/charaktere/skater-sprungvorbereitung/skater-sprungvorbereitung-${number}.png`,
+  );
+  deadImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sturz/skater-sturz-${number}.png`);
+  hurtImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-treffer/skater-treffer-${number}.png`);
+
+  x = 120;
   y = 350;
   width = 63;
   height = 100;
   speed = 8;
-  rideImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-animation/skater-${number}.png`);
-  jumpImages = [5, 6, 7, 8].map((number) => `assets/img/charaktere/skater-animation/skater-${number}.png`);
-  standImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-idle/skater-idle-${number}.png`);
-  stopImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-bremsen/skater-bremsen-${number}.png`);
-  preJumpImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sprungvorbereitung/skater-sprungvorbereitung-${number}.png`);
-  deadImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sturz/skater-sturz-${number}.png`);
-  hurtImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-treffer/skater-treffer-${number}.png`);
   world;
   altePosition = this.x;
   health = 100;
+  jumped = false;
+
   constructor() {
     super();
     this.loadImage(this.standImages[0]);
@@ -29,6 +35,7 @@ class Character extends MovableObj {
     this.animate();
     this.controlCharacter();
     this.fall();
+    this.getRealFrame();
   }
 
   animate() {
@@ -70,8 +77,8 @@ class Character extends MovableObj {
       this.fallAnimation();
     } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
       this.playAnimation(this.rideImages);
-    } else if (this.world.keyboard.SPACE) {
-      this.playAnimation(this.preJumpImages);
+    } else if (this.world.keyboard.SPACE && !this.jumped) {
+      this.playOneAnimation(this.preJumpImages);
     } else {
       this.playAnimation(this.standImages);
     }
@@ -86,8 +93,12 @@ class Character extends MovableObj {
       this.moveLeft();
       this.otherDirection = true;
     }
-    if (this.world.keyboard.SPACE && !this.isAbouveGround()) {
+    if (this.world.keyboard.SPACE && !this.jumped && !this.isAbouveGround()) {
       this.jump();
+      this.jumped = true;
+    }
+    if (!this.world.keyboard.SPACE) {
+      this.jumped = false;
     }
   }
 }
