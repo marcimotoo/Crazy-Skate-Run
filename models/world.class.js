@@ -3,13 +3,14 @@ class World {
   character = new Character();
   throwableObject = [];
   level = level1;
+  coins = [...this.level.coins]; // * NEU: Kopiert die Coin-Liste für diesen Spielstart.
+  coinCount = 0;
   canvas;
   ctx;
   keyboard;
   camera_x = 0;
   hasThrown = false;
   constructor(canvas, keyboard) {
-    // Der Zeichenkontext zeichnet auf das Canvas; keyboard speichert die Tasten.
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
     this.keyboard = keyboard;
@@ -18,21 +19,18 @@ class World {
     this.run();
   }
 
-  // Gibt dem Charakter Zugriff auf diese Welt und ihre Tastatur.
   setWorld() {
     this.character.world = this;
   }
 
-  // Zeichnet die ganze Spielwelt und fordert danach das nächste Bild an.
   drawWorld() {
-    // Löscht das vorige Bild, bevor die Szene neu gezeichnet wird.
+    this.collectCoins(); // * NEU: Sammelt berührte Coins ein, bevor das nächste Bild gezeichnet wird.
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    // Verschiebt die Spielwelt passend zur Kamera.
     this.ctx.translate(this.camera_x, 0);
 
-    // Die Reihenfolge bestimmt, welche Objekte über anderen erscheinen.
     this.addObjectsToMap(this.level.backgroundObjects);
+    this.addObjectsToMap(this.coins);
 
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObject);
@@ -40,37 +38,38 @@ class World {
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.endboss);
 
-    // Nimmt die Kameraverschiebung für die feste Anzeige zurück.
     this.ctx.translate(-this.camera_x, 0);
-    // Die Statusleiste bleibt an ihrer Position auf dem Bildschirm.
     this.balanceLife.draw(this.ctx);
-    // Merkt die Welt, damit die Funktion unten auf sie zugreifen kann.
     const self = this;
-    // Der Browser ruft die Funktion vor dem nächsten Bild auf.
     requestAnimationFrame(function () {
       self.drawWorld();
     });
   }
 
-  // Geht eine Liste durch und zeichnet jedes Objekt einzeln.
+  collectCoins() {
+    for (let index = this.coins.length - 1; index >= 0; index--) { // * NEU: Geht rückwärts durch die Liste, damit beim Entfernen kein Coin übersprungen wird.
+      const coin = this.coins[index];
+      if (this.character.isColliding(coin)) { // * NEU: Prüft, ob sich die Trefferflächen von Figur und Coin überlappen.
+        this.coins.splice(index, 1); // * NEU: Entfernt den Coin aus der Liste der noch verfügbaren Coins.
+        this.coinCount++;
+      }
+    }
+  }
+
   addObjectsToMap(parameter) {
     parameter.forEach((object) => {
       this.addToMap(object);
     });
   }
 
-  // Zeichnet ein bewegliches Objekt und bei Bedarf seinen Rahmen.
   addToMap(mo) {
     this.flipImage(mo);
 
     mo.draw(this.ctx);
-    // mo.drawFrame(this.ctx);
 
     this.flipImageBack(mo);
-    // mo.drawHitboxFrame(this.ctx);
   }
 
-  // Spiegelt das Objekt, wenn es in die andere Richtung schaut.
   flipImage(mo) {
     if (mo.otherDirection) {
       this.ctx.save();
@@ -79,7 +78,6 @@ class World {
       mo.x = mo.x * -1;
     }
   }
-  // Stellt nach dem Zeichnen Position und Zeichenrichtung wieder her.
   flipImageBack(mo) {
     if (mo.otherDirection) {
       mo.x = mo.x * -1;
@@ -87,7 +85,6 @@ class World {
     }
   }
 
-  // Prüft jede Sekunde, ob der Charakter einen Gegner berührt.
   run() {
     const enemys = [this.level.enemies, this.level.endboss];
 
@@ -118,7 +115,7 @@ class World {
       setInterval(() => {
         if (!enemy.isDead()) {
           if (this.character.isColliding(enemy) && !this.character.isHurt()) {
-            this.character.hit(); // Ein Treffer verringert die Energie.
+            this.character.hit();
             this.balanceLife.setPercentage(this.character.health);
           }
         }

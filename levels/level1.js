@@ -12,4 +12,5 @@ const level1 = new Level(
     new BackgroundObject('./assets/img/hintergruende/strasse-breit.png', 720, 720, 50),
   ],
   [new Endboss()],
+  [new Coin(280, 380), new Coin(460, 380), new Coin(640, 380)], // * NEU: Die zwei Zahlen pro Coin sind seine x- und y-Position.
 );
