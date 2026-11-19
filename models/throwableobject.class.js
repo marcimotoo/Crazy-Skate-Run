@@ -1,7 +1,8 @@
 class ThrowableObject extends MovableObj {
-  speedY = 5;
-  speedX = 40;
-  setWH = 40;
+  energyThowPictures = [1, 2, 3, 4].map((number) => `assets/img/energydosen/wurf/entwurf-${number}.png`);
+  speedY = 8;
+  speedX = 15;
+  setWH = 50;
   width = this.setWH;
   height = this.setWH;
 
@@ -17,8 +18,17 @@ class ThrowableObject extends MovableObj {
     this.x = x;
     this.y = y;
     this.otherDirection = otherDirection;
-    this.loadImage('assets/img/entwuerfe/wurfanimation/energydose.png');
+
+    this.loadImage('./assets/img/energydosen/wurf/entwurf-1.png');
+    this.loadMultiImages([...this.energyThowPictures]);
+    this.animate();
     this.throw();
+  }
+
+  animate() {
+    setInterval(() => {
+      this.playAnimation(this.energyThowPictures);
+    }, 1000 / 60);
   }
 
   throw() {
