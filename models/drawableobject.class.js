@@ -27,12 +27,7 @@ class DrawableObject {
   }
 
   drawFrame(ctx) {
-    if (
-      this instanceof Character ||
-      this instanceof Secruity ||
-      this instanceof Endboss ||
-      this instanceof ThrowableObject
-    ) {
+    if (this.instanceofItem()) {
       ctx.beginPath();
       ctx.lineWidth = '2';
       ctx.strokeStyle = 'red';
@@ -42,12 +37,7 @@ class DrawableObject {
   }
 
   drawHitboxFrame(ctx) {
-    if (
-      this instanceof Character ||
-      this instanceof Secruity ||
-      this instanceof Endboss ||
-      this instanceof ThrowableObject
-    ) {
+    if (this.instanceofItem()) {
       this.getRealFrame();
       ctx.beginPath();
       ctx.lineWidth = '2';
@@ -55,5 +45,16 @@ class DrawableObject {
       ctx.rect(this.realX, this.realY, this.realW, this.realH);
       ctx.stroke();
     }
+  }
+
+  instanceofItem() {
+    return (
+      this instanceof Character ||
+      this instanceof Secruity ||
+      this instanceof Endboss ||
+      this instanceof ThrowableObject ||
+      this instanceof Coin ||
+      this instanceof EnergyCan
+    );
   }
 }
