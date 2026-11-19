@@ -1,15 +1,19 @@
 class World {
+  bossLife = new StatusBar();
   balanceLife = new StatusBar();
   character = new Character();
   throwableObject = [];
   level = level1;
-  coins = [...this.level.coins]; // * NEU: Kopiert die Coin-Liste für diesen Spielstart.
-  coinCount = 0;
+  inventory = {
+    coins: 0,
+    energyCans: 0,
+  };
   canvas;
   ctx;
   keyboard;
   camera_x = 0;
   hasThrown = false;
+
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
@@ -24,13 +28,16 @@ class World {
   }
 
   drawWorld() {
-    this.collectCoins(); // * NEU: Sammelt berührte Coins ein, bevor das nächste Bild gezeichnet wird.
+    this.collectItem(this.level.coins, 'coins');
+    this.collectItem(this.level.energyCans, 'energyCans');
+
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.ctx.translate(this.camera_x, 0);
 
     this.addObjectsToMap(this.level.backgroundObjects);
-    this.addObjectsToMap(this.coins);
+    this.addObjectsToMap(this.level.coins);
+    this.addObjectsToMap(this.level.energyCans);
 
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObject);
@@ -40,18 +47,19 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0);
     this.balanceLife.draw(this.ctx);
+
     const self = this;
     requestAnimationFrame(function () {
       self.drawWorld();
     });
   }
 
-  collectCoins() {
-    for (let index = this.coins.length - 1; index >= 0; index--) { // * NEU: Geht rückwärts durch die Liste, damit beim Entfernen kein Coin übersprungen wird.
-      const coin = this.coins[index];
-      if (this.character.isColliding(coin)) { // * NEU: Prüft, ob sich die Trefferflächen von Figur und Coin überlappen.
-        this.coins.splice(index, 1); // * NEU: Entfernt den Coin aus der Liste der noch verfügbaren Coins.
-        this.coinCount++;
+  collectItem(mO, itemType) {
+    for (let index = mO.length - 1; index >= 0; index--) {
+      const item = mO[index];
+      if (this.character.isColliding(item)) {
+        mO.splice(index, 1);
+        this.inventory[itemType]++;
       }
     }
   }
@@ -66,8 +74,10 @@ class World {
     this.flipImage(mo);
 
     mo.draw(this.ctx);
+    mo.drawFrame(this.ctx);
 
     this.flipImageBack(mo);
+    mo.drawHitboxFrame(this.ctx);
   }
 
   flipImage(mo) {
@@ -99,9 +109,10 @@ class World {
 
   throwBottle() {
     setInterval(() => {
-      if (this.keyboard.THROW && !this.hasThrown) {
+      if (this.keyboard.THROW && !this.hasThrown && this.inventory.energyCans > 0) {
         let bottle = new ThrowableObject(this.character.x, this.character.y, this.character.otherDirection);
         this.throwableObject.push(bottle);
+        this.inventory.energyCans--;
         this.hasThrown = true;
       }
       if (!this.keyboard.THROW) {
