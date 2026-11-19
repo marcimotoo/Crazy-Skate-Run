@@ -39,12 +39,7 @@ class MovableObj extends DrawableObject {
   isColliding(mo) {
     this.getRealFrame();
     mo.getRealFrame();
-    return (
-      this.realX + this.realW > mo.realX &&
-      this.realY + this.realH > mo.realY &&
-      this.realX < mo.realX + mo.realW &&
-      this.realY < mo.realY + mo.realH
-    );
+    return this.realX + this.realW > mo.realX && this.realY + this.realH > mo.realY && this.realX < mo.realX + mo.realW && this.realY < mo.realY + mo.realH;
   }
 
   isAbouveGround() {
