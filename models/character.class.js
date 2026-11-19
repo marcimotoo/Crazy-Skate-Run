@@ -3,9 +3,7 @@ class Character extends MovableObj {
   jumpImages = Array.from({ length: 12 }, (_, index) => `assets/img/charaktere/skater-ollie/ollie-${index + 1}.png`);
   standImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-idle/skater-idle-${number}.png`);
   stopImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-bremsen/skater-bremsen-${number}.png`);
-  preJumpImages = [1, 2, 3, 4].map(
-    (number) => `assets/img/charaktere/skater-sprungvorbereitung/skater-sprungvorbereitung-${number}.png`,
-  );
+  preJumpImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sprungvorbereitung/skater-sprungvorbereitung-${number}.png`);
   deadImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sturz/skater-sturz-${number}.png`);
   hurtImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-treffer/skater-treffer-${number}.png`);
 
