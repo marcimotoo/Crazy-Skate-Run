@@ -13,4 +13,5 @@ Ein Browser-Spiel in Entwicklung mit HTML, CSS und JavaScript. Auf einem Canvas 
 - `levels/`: Leveldefinitionen mit Gegnern, Wolken, Hintergrundobjekten und Coins
 - `assets/`: Spielgrafiken und alternative Grafikvorlagen
 - `assets/img/`: Grafiken, sortiert nach Hintergründen, Charakteren und Objekten
+- `ideenbilder/`: visuelle Konzeptideen für mögliche Spielgestaltungen
 - `style.css` und `reset.css`: Darstellung
