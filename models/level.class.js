@@ -1,18 +1,20 @@
 class Level {
+  backgroundObjects;
   enemies;
   clouds;
-  backgroundObjects;
   endboss;
   coins;
   energyCans;
-  level_end_x = 800;
+  level_end_x;
 
-  constructor(enemies, clouds, backgroundObjects, endboss, coins, energyCans) {
+  constructor(backgroundObjects, enemies, clouds, endboss, coins, energyCans) {
+    this.backgroundObjects = backgroundObjects;
     this.enemies = enemies;
     this.clouds = clouds;
-    this.backgroundObjects = backgroundObjects;
     this.endboss = endboss;
     this.coins = coins;
     this.energyCans = energyCans;
+
+    this.level_end_x = Math.max(...backgroundObjects.map((background) => background.x + background.width));
   }
 }
