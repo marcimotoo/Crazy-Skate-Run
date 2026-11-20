@@ -37,7 +37,14 @@ class World {
 
     this.ctx.translate(this.camera_x, 0);
 
-    this.addObjectsToMap(this.level.backgroundObjects);
+    this.level.backgroundObjects.forEach((object) => {
+      // Gleicht einen Teil der Kameraverschiebung aus: 1 = volle Bewegung, 0 = Stillstand.
+      const offset = -this.camera_x * (1 - object.parallax);
+      this.ctx.translate(offset, 0);
+      this.addToMap(object);
+      // Nur dieses Hintergrundobjekt soll den Ausgleich erhalten.
+      this.ctx.translate(-offset, 0);
+    });
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.level.energyCans);
@@ -76,10 +83,10 @@ class World {
     this.flipImage(mo);
 
     mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
+    // mo.drawFrame(this.ctx);
 
     this.flipImageBack(mo);
-    mo.drawHitboxFrame(this.ctx);
+    // mo.drawHitboxFrame(this.ctx);
   }
 
   flipImage(mo) {
