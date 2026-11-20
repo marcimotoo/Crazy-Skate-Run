@@ -4,10 +4,12 @@ class World {
   character = new Character();
   throwableObject = [];
   level = level1;
+
   inventory = {
     coins: 0,
     energyCans: 0,
   };
+
   canvas;
   ctx;
   keyboard;
@@ -36,12 +38,12 @@ class World {
     this.ctx.translate(this.camera_x, 0);
 
     this.addObjectsToMap(this.level.backgroundObjects);
+    this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.level.energyCans);
 
     this.addToMap(this.character);
     this.addObjectsToMap(this.throwableObject);
-    this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.endboss);
 
