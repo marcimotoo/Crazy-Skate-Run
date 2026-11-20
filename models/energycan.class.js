@@ -5,9 +5,9 @@ class EnergyCan extends MovableObj {
 
   offset = {
     top: 10,
-    right: 10,
+    right: 15,
     bottom: 10,
-    left: 10,
+    left: 15,
   };
 
   constructor(x, y) {
