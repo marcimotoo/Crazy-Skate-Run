@@ -13,6 +13,8 @@ class MovableObj extends DrawableObject {
   deathAnimation = false;
   otherDirection = false;
 
+  activeSheet;
+
   realX;
   realY;
   realW;
@@ -112,5 +114,19 @@ class MovableObj extends DrawableObject {
     } else {
       this.currentImage = picturesArray.length - 1;
     }
+  }
+
+  playSheet(sheet) {
+    if (this.activeSheet !== sheet) {
+      this.loadSheet(sheet);
+    }
+    this.frameIndex = (this.frameIndex + 1) % this.frameCount; // Nach dem letzten Bild geht es bei 0 weiter.
+  }
+
+  playOneSheet(sheet) {
+    if (this.activeSheet !== sheet) {
+      this.loadSheet(sheet);
+    }
+    this.frameIndex = Math.min(this.frameIndex + 1, this.frameCount - 1);
   }
 }
