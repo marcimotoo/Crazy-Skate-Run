@@ -1,14 +1,10 @@
 class Secruity extends MovableObj {
   x = 120;
-  y = 350;
+  y = 480 - 100;
   width = 100;
   height = 100;
-  runImage = [1, 2, 3, 4, 5, 6, 7, 8].map(
-    (number) => `assets/img/charaktere/security-laufen-export/security-laufen-0${number}.png`,
-  );
-  deadImage = [1, 2, 3, 4, 5, 6].map(
-    (number) => `assets/img/charaktere/security-tod-export/security-tod-0${number}.png`,
-  );
+  runImage = [1, 2, 3, 4, 5, 6, 7, 8].map((number) => `assets/img/old-images/old-design/characters/security-guard/run/run-0${number}.png`);
+  deadImage = [1, 2, 3, 4, 5, 6].map((number) => `assets/img/old-images/old-design/characters/security-guard/defeated/defeated-0${number}.png`);
   speed = 1 + Math.random() * 3;
   damage = 50;
 
@@ -21,7 +17,7 @@ class Secruity extends MovableObj {
 
   constructor() {
     super();
-    this.loadImage('assets/img/charaktere/security-laufen-export/security-laufen-01.png');
+    this.loadImage('assets/img/old-images/old-design/characters/security-guard/run/run-01.png');
     this.loadMultiImages([...this.runImage, ...this.deadImage]);
     this.x = 200 + Math.random() * 500;
 
