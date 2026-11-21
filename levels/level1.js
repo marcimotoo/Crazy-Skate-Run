@@ -1,13 +1,14 @@
 const backgroundArray = [];
 let x = 0;
 const backgrounds = [
-  { name: 'himmel', height: 480, parallax: 0.1 },
-  { name: 'skyline-transparent', height: 800, parallax: 0.5 },
-  { name: 'haeuser-vorne', height: 480, parallax: 1 },
-  { name: 'strasse-breit', height: 50, parallax: 1 },
+  { name: 'sky', parallax: 0.05 },
+  { name: 'cloud', parallax: 0.1 },
+  { name: 'skyline', parallax: 0.3 },
+  { name: 'grass', parallax: 1 },
+  { name: 'foreground', parallax: 1 },
 ];
 const pathName = backgrounds.map((background) => ({
-  path: `./assets/img/hintergruende/${background.name}.png`,
+  path: `./assets/img/crazy-skate-run/backgrounds/layer-${background.name}-1.png`,
   height: background.height,
   parallax: background.parallax,
 }));
@@ -24,9 +25,9 @@ const level1 = new Level(
 function forBackground() {
   for (let i = 0; i < 100; i++) {
     pathName.forEach((background) => {
-      backgroundArray.push(new BackgroundObject(background.path, x, 720, background.height, background.parallax));
+      backgroundArray.push(new BackgroundObject(background.path, x, background.parallax));
     });
-    x += 720;
+    x += 1440;
   }
   return backgroundArray;
 }
