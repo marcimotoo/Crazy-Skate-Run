@@ -1,14 +1,14 @@
 class Character extends MovableObj {
-  rideImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-animation/skater-${number}.png`);
-  jumpImages = Array.from({ length: 12 }, (_, index) => `assets/img/charaktere/skater-ollie/ollie-${index + 1}.png`);
-  standImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-idle/skater-idle-${number}.png`);
-  stopImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-bremsen/skater-bremsen-${number}.png`);
-  preJumpImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sprungvorbereitung/skater-sprungvorbereitung-${number}.png`);
-  deadImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-sturz/skater-sturz-${number}.png`);
-  hurtImages = [1, 2, 3, 4].map((number) => `assets/img/charaktere/skater-treffer/skater-treffer-${number}.png`);
+  rideImages = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/skater/ride/ride-${number}.png`);
+  jumpImages = Array.from({ length: 12 }, (_, index) => `assets/img/old-images/old-design/characters/skater/ollie/ollie-${index + 1}.png`);
+  standImages = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/skater/idle/idle-${number}.png`);
+  stopImages = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/skater/brake/brake-${number}.png`);
+  preJumpImages = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/skater/jump-preparation/jump-preparation-${number}.png`);
+  deadImages = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/skater/fall/fall-${number}.png`);
+  hurtImages = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/skater/hit/hit-${number}.png`);
 
   x = 120;
-  y = 350;
+  y = 480 - 100;
   width = 63;
   height = 100;
   speed = 8;
