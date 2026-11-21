@@ -24,3 +24,5 @@ Orientiere neue Bilder und Animationsbilder an den vorhandenen Grafiken des Proj
 Prüfe vor dem Einbau neuer Bilder, ob ihr Seitenverhältnis und ihre Darstellung zu den Abmessungen des jeweiligen Spielobjekts passen, damit die Grafiken nicht verzerrt werden. Prüfe bei Animationen zusätzlich einheitliche Bildabmessungen und die Position des Motivs über alle Einzelbilder hinweg.
 
 Stelle Animationsbilder immer als einzelne Bilddateien bereit, nicht als gesamtes Sprite-Sheet.
+
+Bei ausdrücklich angeforderten Sprite-Sheets muss jede Zelle quadratisch sein (Seitenverhältnis 1:1). Verwende für alle Zellen eines Sheets dieselbe Breite und Höhe in Pixeln.
