@@ -45,14 +45,9 @@ class World {
       // Nur dieses Hintergrundobjekt soll den Ausgleich erhalten.
       this.ctx.translate(-offset, 0);
     });
-    this.addObjectsToMap(this.level.clouds);
-    this.addObjectsToMap(this.level.coins);
-    this.addObjectsToMap(this.level.energyCans);
 
-    this.addToMap(this.character);
-    this.addObjectsToMap(this.throwableObject);
-    this.addObjectsToMap(this.level.enemies);
-    this.addObjectsToMap(this.level.endboss);
+    this.addItem();
+    this.addCharcters();
 
     this.ctx.translate(-this.camera_x, 0);
     this.balanceLife.draw(this.ctx);
@@ -61,6 +56,18 @@ class World {
     requestAnimationFrame(function () {
       self.drawWorld();
     });
+  }
+
+  addItem() {
+    this.addObjectsToMap(this.level.coins);
+    this.addObjectsToMap(this.level.energyCans);
+    this.addObjectsToMap(this.throwableObject);
+  }
+
+  addCharcters() {
+    this.addToMap(this.character);
+    this.addObjectsToMap(this.level.enemies);
+    this.addObjectsToMap(this.level.endboss);
   }
 
   collectItem(mO, itemType) {
@@ -83,10 +90,14 @@ class World {
     this.flipImage(mo);
 
     mo.draw(this.ctx);
-    // mo.drawFrame(this.ctx);
+    mo.drawFrame(this.ctx);
 
     this.flipImageBack(mo);
-    // mo.drawHitboxFrame(this.ctx);
+    mo.drawHitboxFrame(this.ctx);
+  }
+
+  addSheetToMap(mo) {
+    mo.sheetDraw(this.ctx);
   }
 
   flipImage(mo) {
