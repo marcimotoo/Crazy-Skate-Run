@@ -1,14 +1,12 @@
 class Endboss extends MovableObj {
   x;
-  endbossAngriff = [1, 2, 3, 4].map((number) => `assets/img/charaktere/polizist-segway/angriff/angriff-${number}.png`);
-  endbossBesiegt = [1, 2, 3, 4].map((number) => `assets/img/charaktere/polizist-segway/besiegt/besiegt-${number}.png`);
-  endbossFahren = [1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2].map(
-    (number) => `assets/img/charaktere/polizist-segway/fahren-neu/fahren-${number}.png`,
-  );
-  endbossTreffer = [1, 2, 3, 4].map((number) => `assets/img/charaktere/polizist-segway/treffer/treffer-${number}.png`);
+  endbossAngriff = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/segway-officer/attack/attack-${number}.png`);
+  endbossBesiegt = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/segway-officer/defeated/defeated-${number}.png`);
+  endbossFahren = [1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2].map((number) => `assets/img/old-images/old-design/characters/segway-officer/ride/ride-${number}.png`);
+  endbossTreffer = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/segway-officer/hit/hit-${number}.png`);
 
   x = 650;
-  y = 310;
+  y = 480 - 140;
   width = 150;
   height = 150;
   speed = 2;
@@ -23,12 +21,7 @@ class Endboss extends MovableObj {
   constructor() {
     super();
     this.loadImage(this.endbossFahren[0]);
-    this.loadMultiImages([
-      ...this.endbossAngriff,
-      ...this.endbossBesiegt,
-      ...this.endbossFahren,
-      ...this.endbossTreffer,
-    ]);
+    this.loadMultiImages([...this.endbossAngriff, ...this.endbossBesiegt, ...this.endbossFahren, ...this.endbossTreffer]);
     this.animate();
   }
 
