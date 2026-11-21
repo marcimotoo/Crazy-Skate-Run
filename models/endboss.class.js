@@ -1,5 +1,25 @@
 class Endboss extends MovableObj {
-  x;
+  rideSheet = {
+    path: 'assets/img/crazy-skate-run/characters/segway-officer/ride-sheet.png',
+    columns: 4,
+    rows: 2,
+  };
+  attackSheet = {
+    path: 'assets/img/crazy-skate-run/characters/segway-officer/attack-sheet.png',
+    columns: 2,
+    rows: 2,
+  };
+  hitSheet = {
+    path: 'assets/img/crazy-skate-run/characters/segway-officer/hit-sheet.png',
+    columns: 2,
+    rows: 2,
+  };
+  defeatedSheet = {
+    path: 'assets/img/crazy-skate-run/characters/segway-officer/defeated-sheet.png',
+    columns: 2,
+    rows: 2,
+  };
+
   endbossAngriff = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/segway-officer/attack/attack-${number}.png`);
   endbossBesiegt = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/segway-officer/defeated/defeated-${number}.png`);
   endbossFahren = [1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2].map((number) => `assets/img/old-images/old-design/characters/segway-officer/ride/ride-${number}.png`);
