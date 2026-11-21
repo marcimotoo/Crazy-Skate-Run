@@ -1,5 +1,5 @@
 class Coin extends MovableObj {
-  coinPictureSet = [1, 2, 3, 4, 5, 6].map((number) => `./assets/img/coins-vi/coin-${number}.png`);
+  coinPictureSet = [1, 2, 3, 4, 5, 6].map((number) => `./assets/img/old-images/old-design/coins/coin-${number}.png`);
 
   width = 50;
   height = 50;
@@ -9,7 +9,7 @@ class Coin extends MovableObj {
     super();
     this.x = x;
     this.y = y;
-    this.loadImage('./assets/img/coins-vi/coin-1.png');
+    this.loadImage('./assets/img/old-images/old-design/coins/coin-1.png');
     this.loadMultiImages([...this.coinPictureSet]);
     this.animate();
   }
