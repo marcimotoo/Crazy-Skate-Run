@@ -1,10 +1,14 @@
 class Secruity extends MovableObj {
+  sheetFolder = './assets/img/crazy-skate-run/characters/security-guard';
+
+  walkSheet = { path: `${this.sheetFolder}/guard-walk-sheet.png`, columns: 6, rows: 1 };
+  attackSheet = { path: `${this.sheetFolder}/guard-attack-sheet.png`, columns: 6, rows: 1 };
+  defeatedSheet = { path: `${this.sheetFolder}/guard-defeated-sheet.png`, columns: 6, rows: 1 };
+
   x = 120;
   y = 480 - 100;
   width = 100;
   height = 100;
-  runImage = [1, 2, 3, 4, 5, 6, 7, 8].map((number) => `assets/img/old-images/old-design/characters/security-guard/run/run-0${number}.png`);
-  deadImage = [1, 2, 3, 4, 5, 6].map((number) => `assets/img/old-images/old-design/characters/security-guard/defeated/defeated-0${number}.png`);
   speed = 1 + Math.random() * 3;
   damage = 50;
 
@@ -17,8 +21,9 @@ class Secruity extends MovableObj {
 
   constructor() {
     super();
-    this.loadImage('assets/img/old-images/old-design/characters/security-guard/run/run-01.png');
-    this.loadMultiImages([...this.runImage, ...this.deadImage]);
+    this.loadSheet(this.walkSheet);
+    this.loadMoreSheets([this.walkSheet, this.attackSheet, this.defeatedSheet]);
+
     this.x = 200 + Math.random() * 500;
 
     this.animate();
@@ -26,14 +31,16 @@ class Secruity extends MovableObj {
 
   animate() {
     setInterval(() => {
-      if (!this.isDead()) {
-        this.playAnimation(this.runImage);
+      this.playSheet(this.walkSheet);
+      if (this.isDead()) {
+        this.playOneSheet(this.defeatedSheet);
       } else {
-        if (!this.deathAnimation) {
-          this.deadStatusReset();
-        }
-        this.playOneAnimation(this.deadImage);
       }
+      //   if (!this.deathAnimation) {
+      //     this.deadStatusReset();
+      //   }
+      //   this.playOneAnimation(this.deadImage);
+      // }
     }, 1000 / 8);
   }
 }
