@@ -3,8 +3,7 @@ let x = 0;
 const backgrounds = [
   { name: 'sky', parallax: 0.05 },
   { name: 'cloud', parallax: 0.1 },
-  { name: 'skyline', parallax: 0.3 },
-  { name: 'grass', parallax: 1 },
+  { name: 'skyline', parallax: 0.15 },
   { name: 'foreground', parallax: 1 },
 ];
 const pathName = backgrounds.map((background) => ({
