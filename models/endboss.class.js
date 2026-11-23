@@ -1,24 +1,10 @@
 class Endboss extends MovableObj {
-  rideSheet = {
-    path: 'assets/img/crazy-skate-run/characters/segway-officer/ride-sheet.png',
-    columns: 4,
-    rows: 2,
-  };
-  attackSheet = {
-    path: 'assets/img/crazy-skate-run/characters/segway-officer/attack-sheet.png',
-    columns: 2,
-    rows: 2,
-  };
-  hitSheet = {
-    path: 'assets/img/crazy-skate-run/characters/segway-officer/hit-sheet.png',
-    columns: 2,
-    rows: 2,
-  };
-  defeatedSheet = {
-    path: 'assets/img/crazy-skate-run/characters/segway-officer/defeated-sheet.png',
-    columns: 2,
-    rows: 2,
-  };
+  sheetFolder = './assets/img/crazy-skate-run/characters/segway-officer';
+
+  rideSheet = { path: `${this.sheetFolder}/ride-sheet.png`, columns: 4, rows: 2 };
+  attackSheet = { path: `${this.sheetFolder}/attack-sheet.png`, columns: 2, rows: 2 };
+  hitSheet = { path: `${this.sheetFolder}/hit-sheet.png`, columns: 2, rows: 2 };
+  defeatedSheet = { path: `${this.sheetFolder}/defeated-sheet.png`, columns: 2, rows: 2 };
 
   endbossAngriff = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/segway-officer/attack/attack-${number}.png`);
   endbossBesiegt = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/segway-officer/defeated/defeated-${number}.png`);
@@ -40,21 +26,22 @@ class Endboss extends MovableObj {
 
   constructor() {
     super();
-    this.loadImage(this.endbossFahren[0]);
-    this.loadMultiImages([...this.endbossAngriff, ...this.endbossBesiegt, ...this.endbossFahren, ...this.endbossTreffer]);
+    this.loadSheet(this.rideSheet);
+    this.loadMoreSheets([this.rideSheet, this.attackSheet, this.hitSheet, this.defeatedSheet]);
     this.animate();
   }
 
   animate() {
     setInterval(() => {
-      if (!this.isDead()) {
-        this.playAnimation(this.endbossFahren);
-      } else {
-        if (!this.deathAnimation) {
-          this.deadStatusReset();
-        }
-        this.playOneAnimation(this.endbossBesiegt);
-      }
+      this.playSheet(this.rideSheet);
+      // if (this.isDead()) {
+      //   this.playOneSheet(this.defeatedSheet);
+      // } else {
+      //   if (!this.deathAnimation) {
+      //     this.deadStatusReset();
+      //   }
+      //   this.playOneAnimation(this.endbossBesiegt);
+      // }
     }, 1000 / 8);
   }
 }
