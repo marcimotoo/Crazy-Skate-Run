@@ -22,7 +22,13 @@ class DrawableObject {
     this.columns = sheet.columns;
     this.rows = sheet.rows;
     this.frameCount = this.columns * this.rows;
-    this.loadImage(sheet.path);
+    const cachedImage = this.imageCache[sheet.path];
+
+    if (cachedImage) {
+      this.img = cachedImage;
+    } else {
+      this.loadImage(sheet.path);
+    }
   }
 
   draw(ctx) {
@@ -57,6 +63,14 @@ class DrawableObject {
       const img = new Image();
       img.src = path;
       this.imageCache[path] = img;
+    });
+  }
+
+  loadMoreSheets(arrayWithObjects) {
+    arrayWithObjects.forEach((sheet) => {
+      const image = new Image();
+      image.src = sheet.path;
+      this.imageCache[sheet.path] = image;
     });
   }
 
