@@ -1,5 +1,8 @@
 class EnergyCan extends MovableObj {
-  energyCanPictures = [1, 2, 3, 4].map((number) => `./assets/img/old-images/old-design/energy-cans/collectible/energy-can-${number}.png`);
+  sheetFolder = './assets/img/crazy-skate-run/items/energy-cans';
+
+  idleSheet = { path: `${this.sheetFolder}/energy-can-idle-sheet.png`, columns: 6, rows: 1 };
+
   width = 50;
   height = 50;
 
@@ -14,14 +17,13 @@ class EnergyCan extends MovableObj {
     super();
     this.x = x;
     this.y = y;
-    this.loadImage('assets/img/old-images/old-design/energy-cans/collectible/energy-can-1.png');
-    this.loadMultiImages([...this.energyCanPictures]);
+    this.loadSheet(this.idleSheet);
     this.animate();
   }
 
   animate() {
     setInterval(() => {
-      this.playAnimation(this.energyCanPictures);
+      this.playSheet(this.idleSheet);
     }, 300);
   }
 }
