@@ -1,5 +1,8 @@
 class Coin extends MovableObj {
-  coinPictureSet = [1, 2, 3, 4, 5, 6].map((number) => `./assets/img/old-images/old-design/coins/coin-${number}.png`);
+  sheetFolder = './assets/img/crazy-skate-run/items/coins';
+
+  coinSheet = { path: `${this.sheetFolder}/coin-spin-sheet.png`, columns: 6, rows: 1 };
+  pickupSheet = { path: `${this.sheetFolder}/coin-pickup-sheet.png`, columns: 6, rows: 1 };
 
   width = 50;
   height = 50;
@@ -9,14 +12,14 @@ class Coin extends MovableObj {
     super();
     this.x = x;
     this.y = y;
-    this.loadImage('./assets/img/old-images/old-design/coins/coin-1.png');
-    this.loadMultiImages([...this.coinPictureSet]);
+    this.loadSheet(this.coinSheet);
+    this.loadMoreSheets([this.coinSheet, this.pickupSheet]);
     this.animate();
   }
 
   animate() {
     setInterval(() => {
-      this.playAnimation(this.coinPictureSet);
+      this.playSheet(this.coinSheet);
     }, 300);
   }
 }
