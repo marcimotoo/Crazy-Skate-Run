@@ -7,51 +7,19 @@ class Character extends MovableObj {
     return this.keyboard.LEFT || this.keyboard.RIGHT;
   }
 
-  //img arrays
+  //img arrays - map funktion gibt mir das array mit den den pfaden zurück, habs verworfen weil mir das mit den sprite sheets besser gefällt.
   rideImages = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/skater/ride/ride-${number}.png`);
-  jumpImages = Array.from({ length: 12 }, (_, index) => `assets/img/old-images/old-design/characters/skater/ollie/ollie-${index + 1}.png`);
-  standImages = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/skater/idle/idle-${number}.png`);
-  stopImages = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/skater/brake/brake-${number}.png`);
-  preJumpImages = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/skater/jump-preparation/jump-preparation-${number}.png`);
-  deadImages = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/skater/fall/fall-${number}.png`);
-  hurtImages = [1, 2, 3, 4].map((number) => `assets/img/old-images/old-design/characters/skater/hit/hit-${number}.png`);
 
-  //sheets
-  standSheet = {
-    path: 'assets/img/crazy-skate-run/character/skater-stand-sheet.png',
-    columns: 2,
-    rows: 2,
-  };
-  phoneIdleSheet = {
-    path: 'assets/img/crazy-skate-run/character/skater-phone-idle-sheet.png',
-    columns: 4,
-    rows: 2,
-  };
-  rollSheet = {
-    path: 'assets/img/crazy-skate-run/character/skater-roll-preview.png',
-    columns: 4,
-    rows: 2,
-  };
-  pushSheet = {
-    path: 'assets/img/crazy-skate-run/character/skater-push-preview.png',
-    columns: 4,
-    rows: 3,
-  };
-  ollieSheet = {
-    path: 'assets/img/crazy-skate-run/character/skater-ollie-preview.png',
-    columns: 4,
-    rows: 3,
-  };
-  hurtSheet = {
-    path: 'assets/img/crazy-skate-run/character/skater-hurt-sheet.png',
-    columns: 2,
-    rows: 2,
-  };
-  fallSheet = {
-    path: 'assets/img/crazy-skate-run/character/skater-fall-preview.png',
-    columns: 4,
-    rows: 1,
-  };
+  // Sheets
+  sheetFolder = './assets/img/crazy-skate-run/character';
+
+  standSheet = { path: `${this.sheetFolder}/skater-stand-sheet.png`, columns: 2, rows: 2 };
+  phoneIdleSheet = { path: `${this.sheetFolder}/skater-phone-idle-sheet.png`, columns: 4, rows: 2 };
+  rollSheet = { path: `${this.sheetFolder}/skater-roll-preview.png`, columns: 4, rows: 2 };
+  pushSheet = { path: `${this.sheetFolder}/skater-push-preview.png`, columns: 4, rows: 3 };
+  ollieSheet = { path: `${this.sheetFolder}/skater-ollie-preview.png`, columns: 4, rows: 3 };
+  hurtSheet = { path: `${this.sheetFolder}/skater-hurt-sheet.png`, columns: 2, rows: 2 };
+  fallSheet = { path: `${this.sheetFolder}/skater-fall-preview.png`, columns: 4, rows: 1 };
 
   x = 120;
   y = 480 - 100;
@@ -74,6 +42,7 @@ class Character extends MovableObj {
   constructor() {
     super();
     this.loadSheet(this.standSheet);
+    this.loadMoreSheets([this.standSheet, this.phoneIdleSheet, this.rollSheet, this.pushSheet, this.ollieSheet, this.hurtSheet, this.fallSheet]);
     this.animate();
     this.controlWorld();
     this.fall();
