@@ -15,6 +15,7 @@ class World {
   keyboard;
   camera_x = 0;
   hasThrown = false;
+  collect = false;
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
@@ -74,6 +75,7 @@ class World {
     for (let index = mO.length - 1; index >= 0; index--) {
       const item = mO[index];
       if (this.character.isColliding(item)) {
+        mO.collect = true;
         mO.splice(index, 1);
         this.inventory[itemType]++;
       }
