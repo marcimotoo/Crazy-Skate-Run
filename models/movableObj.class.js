@@ -27,6 +27,8 @@ class MovableObj extends DrawableObject {
     left: 15,
   };
 
+  collect = false;
+
   constructor() {
     super();
   }
