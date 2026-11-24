@@ -20,6 +20,9 @@ class Coin extends MovableObj {
   animate() {
     setInterval(() => {
       this.playSheet(this.coinSheet);
+      if (this.world.collect === true) {
+        this.playOneSheet(this.pickupSheet);
+      }
     }, 300);
   }
 }
